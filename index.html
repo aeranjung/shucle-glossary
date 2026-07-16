@@ -1375,8 +1375,8 @@
         <tbody>
           <tr>
             <td class="c-term" style="color:#7C3AED">운스케</td>
-            <td class="c-en">운행 스케줄 / 근무 시간표</td>
-            <td class="c-desc">다음날 차량·드라이버 운행 일정. 당일 21시까지 미등록 시 관제 알림 발생. <span class="tag gray">관련: operation_schedule</span></td>
+            <td class="c-en">운행 스케줄 (Day Schedule)</td>
+            <td class="c-desc">차량별 가동 시간, 기사님의 출퇴근 시간 및 휴식 세션 등을 규정한 템플릿 일정표. 당일 21시까지 미등록 시 관제 알림 발생. <span class="tag gray">4.서비스정책서/2.DRT/(구)운행스케줄.md</span> <span class="tag gray">operation_schedule</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">가호</td>
@@ -1404,24 +1404,24 @@
             <td class="c-desc">매칭 알고리즘 실행 엔진. 개발팀에서 "배엔 이슈야" 처럼 사용</td>
           </tr>
           <tr>
-            <td class="c-term" style="color:#7C3AED">운툴</td>
-            <td class="c-en">운영툴 (관제 시스템)</td>
-            <td class="c-desc">operation.shucle.com의 내부 약칭. "운툴에서 확인해봐요"</td>
+            <td class="c-term" style="color:#7C3AED">관제툴 / 옵툴 / 운툴</td>
+            <td class="c-en">관제 도구 / 운영 툴 (Operation Tool)</td>
+            <td class="c-desc">관리자가 실시간 차량 이동 현황을 모니터링하고 가상 정류장 수정·휴식 스케줄 조정·민원(CS) 처리를 담당하는 백오피스 관제 시스템. <em>"옵툴에서 확인해봐요"</em> <span class="tag gray">optool-doc #2639</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">라앱</td>
-            <td class="c-en">라이더앱</td>
-            <td class="c-desc">승객용 셔클 앱의 구어체 약칭. "라앱 버전 확인해줘"</td>
+            <td class="c-en">라이더 앱 (Rider App)</td>
+            <td class="c-desc">승객(라이더)들이 탑승 예약을 하거나 차량을 호출하는 실제 사용자용 앱. <em>"라앱 버전 확인해줘"</em> <span class="tag gray">shucle-product #3284</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">드앱</td>
-            <td class="c-en">드라이버앱</td>
-            <td class="c-desc">DRT 기사용 앱의 구어체 약칭. "드앱 재시작 해달라고 하세요"</td>
+            <td class="c-en">드라이버 앱 (Driver App)</td>
+            <td class="c-desc">현장 버스·밴 기사님들이 로그인해 승객 탑승 처리·내비게이션 경로 안내 등을 수행하는 기사용 앱. <em>"드앱 재시작 해달라고 하세요"</em> <span class="tag gray">optool-doc #2639</span></td>
           </tr>
           <tr>
-            <td class="c-term" style="color:#7C3AED">비앱</td>
-            <td class="c-en">비히클앱 (Vehicle App)</td>
-            <td class="c-desc">차량 단말 앱의 구어체 약칭</td>
+            <td class="c-term" style="color:#7C3AED">비이클앱 / 비클앱</td>
+            <td class="c-en">차량용 앱 (Vehicle App)</td>
+            <td class="c-desc">차량 내부 대시보드 디스플레이(태블릿)에 탑재되어 실시간 정류장 도착 정보·안내 영상을 송출하는 차량 전용 앱. <span class="tag gray">Driver App/03.운행중:운행스케줄.md</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">빌키</td>
@@ -1439,9 +1439,19 @@
             <td class="c-desc">사업지 도입 효과 사전 예측 도구. "시뮬 돌려봤어요?"</td>
           </tr>
           <tr>
-            <td class="c-term" style="color:#7C3AED">세도교 / 도교공</td>
+            <td class="c-term" style="color:#7C3AED">세교공 / 세도교 / 도교공</td>
             <td class="c-en">세종도시교통공사 (KCTC)</td>
-            <td class="c-desc">세종 DRT 운수사의 구어체 약칭. 공식 약어는 KCTC</td>
+            <td class="c-desc">세종특별자치시의 대중교통·이응버스·이응패스·어울링(자전거) 등 서비스 주체이자 정산·운수 관리를 직접 수행하는 핵심 공사. 공식 약어는 KCTC. <span class="tag gray">shucle-product #3284</span> <span class="tag gray">shucle-product #4487</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">경교공 / 공사</td>
+            <td class="c-en">경기교통공사 (GT)</td>
+            <td class="c-desc">경기도 통합 교통 브랜드 <strong>'똑타'</strong>를 현대차와 함께 공동 운영하는 핵심 지자체 산하 기관. 내부에서 '공사'라고도 불림. <span class="tag gray">shucle-product #3330</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">대광위</td>
+            <td class="c-en">대도시권광역교통위원회</td>
+            <td class="c-desc">국토교통부 소속 행정기구. 광역 콜버스·지자체 간 광역 통합 교통 모델(준공영제 등) 정책의 오너십을 갖는 정부 기관. <span class="tag gray">4.서비스정책서/2.DRT/(개발논의중)DRT장거리이동x예약.md</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">대기오차</td>
@@ -1462,6 +1472,41 @@
             <td class="c-term" style="color:#7C3AED">운행상세</td>
             <td class="c-en">운행 상세 화면 (/supply/:id)</td>
             <td class="c-desc">운영툴 내 차량 세션 전체 이력 화면. "운행상세 확인해봐요"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">운유타</td>
+            <td class="c-en">운행 유형 타입 (Operation Type)</td>
+            <td class="c-desc">노선의 종류, 배차 ON/OFF 여부, 차고지·대기장소 설정 기준을 분류해 놓은 데이터 카테고리. 운영툴에서 운행유형타입(operationType)으로 표시. <span class="tag gray">optool #2639</span> <span class="tag gray">optool #2473</span> <span class="tag gray">operation_type_id</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">필테</td>
+            <td class="c-en">필드 테스트 (Field Test)</td>
+            <td class="c-desc">신규 지역 정식 오픈 전, 실제 현장 도로에 테스트 차량(주로 쏠라티 등)을 띄우고 내부 직원·테스터가 직접 탑승·하차하며 시스템 정상 작동을 검증하는 실주행 현장 테스트. <span class="tag gray">shucle-product #3284</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">서타</td>
+            <td class="c-en">서비스 테스트 서버 (Service Test Cluster)</td>
+            <td class="c-desc">실제 운영 서버와 동일한 조건으로 구성된 가상 테스트 배포 서버. 번호로 구분해 사용. <em>"서타17에서 에러 나네요"</em>, <em>"서타7로 설정하고 호출해 주세요"</em> 처럼 사용. <span class="tag gray">shucle-product #3284</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">리얼</td>
+            <td class="c-en">리얼 서버 (Production / Real Server)</td>
+            <td class="c-desc">실제 유저들이 사용하는 운영(상용) 환경 서버. 서타(테스트 서버)의 반대 개념. <em>"리얼에서도 재현돼요?"</em> 처럼 사용.</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">새니티</td>
+            <td class="c-en">새니티 테스트 (Sanity Test)</td>
+            <td class="c-desc">기능 개발 완료 후 전체 시스템이 무너지지 않고 주요 시나리오가 정상 동작하는지 가볍게 훑어보는 기본 검증 테스트. 본격 QA 전 단계에서 수행. <em>"새니티 먼저 돌려봐요"</em></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">인앱 (In-App)</td>
+            <td class="c-en">In-App 연동 방식</td>
+            <td class="c-desc">타사 모달리티를 우리 앱 화면 안에서 다이렉트로 구현해 결제까지 수행하는 연동 방식. 앱투앱과 대비되는 개념. <span class="tag gray">shucle-product #6829</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">앱투앱 (App-to-App)</td>
+            <td class="c-en">App-to-App 연동 방식</td>
+            <td class="c-desc">우리 앱에서 버튼을 누르면 타사 앱(예: 바로DRT 등)을 직접 호출하거나 설치 마켓으로 랜딩시키는 방식. 인앱 연동과 대비. <span class="tag gray">shucle-product #5152</span> <span class="tag gray">shucle-product #6829</span></td>
           </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">긴급알림</td>
