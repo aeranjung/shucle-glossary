@@ -24,9 +24,1929 @@
       color: var(--text);
       min-height: 100vh;
     }
+
+    /* ── 고정 헤더 (thin bar) ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 56px;
+      background: linear-gradient(135deg, #0A2472 0%, #0D47A1 100%);
+      color: white;
+      display: flex; align-items: center;
+      padding: 0 20px; gap: 16px;
+      z-index: 300;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.25);
+    }
+    .header-logo { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+    .header-logo .logo-icon {
+      width: 30px; height: 30px; border-radius: 8px;
+      background: rgba(255,255,255,0.18);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .header-logo h1 { font-size: 15px; font-weight: 800; letter-spacing: -0.3px; line-height: 1.2; }
+    .header-logo p { font-size: 10px; opacity: 0.6; line-height: 1; margin-top: 2px; }
+    .header-divider { width: 1px; height: 28px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+
+    /* Search in header */
+    .search-wrap { flex: 1; max-width: 440px; position: relative; }
+    .search-wrap input {
+      width: 100%;
+      padding: 8px 38px 8px 16px;
+      border-radius: 20px;
+      border: none;
+      font-size: 13px;
+      background: rgba(255,255,255,0.14);
+      color: white;
+      outline: none;
+      transition: background .2s, box-shadow .2s;
+    }
+    .search-wrap input::placeholder { color: rgba(255,255,255,0.5); }
+    .search-wrap input:focus {
+      background: rgba(255,255,255,0.22);
+      box-shadow: 0 0 0 2px rgba(0,180,216,0.5);
+    }
+    .search-wrap .ico { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: rgba(255,255,255,0.5); pointer-events: none; }
+
+    /* Stats */
+    .stats { display: flex; gap: 20px; margin-left: auto; flex-shrink: 0; }
+    .stat { text-align: center; }
+    .stat-num { font-size: 15px; font-weight: 800; line-height: 1; }
+    .stat-label { font-size: 9px; opacity: 0.55; margin-top: 2px; }
+
+    #search-count {
+      position: fixed; top: 56px; left: 220px; right: 0;
+      background: #FEF3C7; color: #92400E;
+      font-size: 12px; font-weight: 600;
+      padding: 5px 20px;
+      z-index: 200; display: none;
+      border-bottom: 1px solid #FDE68A;
+    }
+    #search-count.show { display: block; }
+
+    /* ── 레이아웃 ── */
+    .body-wrap {
+      display: flex;
+      margin-top: 56px; /* fixed header height */
+      min-height: calc(100vh - 56px);
+    }
+
+    /* Sidebar LNB — fixed */
+    .sidebar {
+      position: fixed;
+      top: 56px; left: 0; bottom: 0;
+      width: 220px;
+      background: #FAFBFF;
+      border-right: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      z-index: 200;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: #E2E8F0 transparent;
+    }
+    .sidebar::-webkit-scrollbar { width: 3px; }
+    .sidebar::-webkit-scrollbar-thumb { background: #E2E8F0; border-radius: 3px; }
+
+    .sidebar-top {
+      padding: 14px 14px 10px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .sidebar-title {
+      font-size: 9.5px; font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 2px;
+    }
+    .sidebar-sub { font-size: 11px; color: #94A3B8; }
+
+    .nav-tabs {
+      display: flex; flex-direction: column;
+      padding: 6px 0 16px; flex: 1;
+    }
+    .nav-tab {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 14px;
+      font-size: 12.5px; font-weight: 500;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-left: 3px solid transparent;
+      transition: all .13s;
+      white-space: nowrap; line-height: 1.3;
+    }
+    .nav-tab:hover { background: #F1F5F9; color: var(--primary); }
+    .nav-tab.active {
+      background: #EEF2FF; color: var(--primary);
+      border-left-color: #00B4D8; font-weight: 700;
+    }
+    .nav-tab .emoji { font-size: 13px; flex-shrink: 0; width: 18px; text-align: center; }
+    .nav-tab .label { flex: 1; }
+    .nav-tab .cnt {
+      background: #E2E8F0; color: #475569;
+      border-radius: 8px; padding: 1px 5px;
+      font-size: 10px; font-weight: 700; flex-shrink: 0;
+    }
+    .nav-tab.active .cnt { background: #C7D2FE; color: #3730A3; }
+
+    .nav-divider { height: 1px; background: var(--border); margin: 5px 12px; }
+    .nav-group-label {
+      font-size: 9.5px; font-weight: 800; color: #94A3B8;
+      text-transform: uppercase; letter-spacing: 0.1em;
+      padding: 9px 14px 3px;
+    }
+
+    /* Main content — margin-left for fixed sidebar */
+    main {
+      margin-left: 220px;
+      flex: 1; min-width: 0;
+      padding: 24px 28px 60px;
+    }
+
+    /* Section */
+    .section { margin-bottom: 48px; }
+    .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .sec-icon {
+      width: 36px; height: 36px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .section-header h2 { font-size: 18px; font-weight: 800; color: var(--primary); }
+    .section-header .sub { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+
+    /* Table */
+    .table-wrap {
+      background: var(--card);
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 13px; }
+    thead th {
+      background: linear-gradient(to bottom, #F8FAFC, #F1F5F9);
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 10.5px; font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody tr { border-bottom: 1px solid #F1F5F9; transition: background .15s; }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: #FAFBFF; }
+    tbody td { padding: 11px 14px; vertical-align: top; line-height: 1.55; }
+
+    /* Cell types */
+    .c-term {
+      font-weight: 700; color: var(--primary);
+      min-width: 120px; white-space: nowrap;
+    }
+    .c-term small {
+      display: block; font-size: 11px; font-weight: 400;
+      color: var(--text-muted); white-space: normal; margin-top: 2px;
+    }
+    .c-en { color: #475569; font-size: 12.5px; }
+    .c-code {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 11.5px;
+      min-width: 130px;
+    }
+    /* code pill */
+    .cp {
+      display: inline-block;
+      background: #1E293B;
+      color: #93C5FD;
+      border-radius: 5px;
+      padding: 2px 7px;
+      font-size: 11px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      margin: 1px 2px 1px 0;
+      white-space: nowrap;
+    }
+    .cp.green { color: #6EE7B7; }
+    .cp.yellow { color: #FDE68A; }
+    .cp.red { color: #FCA5A5; }
+    .cp.gray { color: #94A3B8; }
+    .cp.purple { color: #C4B5FD; }
+
+    .c-desc { color: #374151; max-width: 420px; }
+    .c-desc small { color: #E53E3E; font-size: 11.5px; }
+
+    /* tag */
+    .tag {
+      display: inline-block; border-radius: 6px;
+      padding: 2px 7px; font-size: 11px; font-weight: 600;
+      margin-right: 3px; margin-bottom: 2px; white-space: nowrap;
+    }
+    .tag.blue   { background: #DBEAFE; color: #1E40AF; }
+    .tag.green  { background: #DCFCE7; color: #166534; }
+    .tag.orange { background: #FEF3C7; color: #92400E; }
+    .tag.red    { background: #FEE2E2; color: #991B1B; }
+    .tag.gray   { background: #F1F5F9; color: #475569; }
+    .tag.purple { background: #EDE9FE; color: #5B21B6; }
+
+    /* sub-title */
+    .sub-title {
+      font-size: 11.5px; font-weight: 700; color: var(--text-muted);
+      padding: 8px 14px;
+      background: #F8FAFC;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase; letter-spacing: 0.05em;
+    }
+
+    /* no results */
+    .no-results { text-align: center; padding: 60px 20px; color: var(--text-muted); display: none; }
+    .no-results p { font-size: 15px; margin-top: 12px; }
+
+    mark { background: #FEF08A; color: inherit; border-radius: 2px; padding: 0 1px; }
+
+    footer {
+      text-align: center; padding: 22px;
+      font-size: 12px; color: var(--text-muted);
+      border-top: 1px solid var(--border); background: white;
+    }
+
+    #back-top {
+      position: fixed; bottom: 24px; right: 24px;
+      width: 36px; height: 36px;
+      background: var(--primary); color: white;
+      border: none; border-radius: 50%; cursor: pointer;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: var(--shadow-md); font-size: 16px; z-index: 250;
+      opacity: 0.85; transition: opacity .2s;
+    }
+    #back-top:hover { opacity: 1; }
+    #back-top.show { display: flex; }
+
+    @media (max-width: 960px) {
+      .sidebar { width: 48px; }
+      .sidebar-top { display: none; }
+      .nav-group-label { display: none; }
+      .nav-divider { margin: 3px 8px; }
+      .nav-tab { padding: 9px; justify-content: center; }
+      .nav-tab .label { display: none; }
+      .nav-tab .cnt { display: none; }
+      .nav-tab .emoji { font-size: 15px; width: auto; }
+      main { margin-left: 48px; }
+      #search-count { left: 48px; }
+      .c-code { min-width: auto; }
+      thead th:nth-child(3) { display: none; }
+      tbody td:nth-child(3) { display: none; }
+    }
+    @media (max-width: 600px) {
+      .sidebar { position: relative; top: auto; left: auto; bottom: auto; width: 100%; height: auto; border-right: none; border-bottom: 1px solid var(--border); flex-direction: row; }
+      .body-wrap { flex-direction: column; }
+      .nav-tabs { flex-direction: row; overflow-x: auto; padding: 2px 0; scrollbar-width: none; }
+      .nav-tabs::-webkit-scrollbar { display: none; }
+      .nav-tab { border-left: none; border-bottom: 3px solid transparent; padding: 8px 10px; flex-shrink: 0; justify-content: center; }
+      .nav-tab.active { border-bottom-color: #00B4D8; border-left-color: transparent; }
+      .nav-tab .label { display: none; }
+      main { margin-left: 0; padding: 14px 12px 40px; }
+      #search-count { left: 0; top: calc(56px + 40px); }
+      .stats { display: none; }
+      header { gap: 10px; }
+      .header-divider { display: none; }
+    }
   </style>
 </head>
 <body>
-<p>Loading...</p>
+
+<header>
+  <div class="header-logo">
+    <div class="logo-icon">🚌</div>
+    <div>
+      <h1>셔클 용어집</h1>
+      <p>hkmc-airlab · 2026.07</p>
+    </div>
+  </div>
+  <div class="header-divider"></div>
+  <div class="search-wrap">
+    <input type="text" id="search" placeholder="용어, 영문명, 변수명, 설명 검색..." autocomplete="off">
+    <svg class="ico" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">12</div><div class="stat-label">카테고리</div></div>
+    <div class="stat"><div class="stat-num" id="total-terms">—</div><div class="stat-label">용어</div></div>
+    <div class="stat"><div class="stat-num">256</div><div class="stat-label">레포</div></div>
+  </div>
+</header>
+<div id="search-count"></div>
+
+<div class="body-wrap">
+
+<!-- ── 좌측 LNB ── -->
+<nav class="sidebar">
+  <div class="sidebar-top">
+    <div class="sidebar-title">카테고리</div>
+    <div class="sidebar-sub" id="sidebar-count"></div>
+  </div>
+  <div class="nav-tabs" id="nav-tabs">
+    <div class="nav-tab active" data-section="s0">
+      <span class="emoji">🏠</span><span class="label">홈</span>
+    </div>
+    <div class="nav-tab" data-section="all">
+      <span class="emoji">☰</span><span class="label">전체 보기</span>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-group-label">서비스</div>
+
+    <div class="nav-tab" data-section="s1">
+      <span class="emoji">🚌</span><span class="label">서비스 유형</span>
+    </div>
+    <div class="nav-tab" data-section="s2">
+      <span class="emoji">📱</span><span class="label">플랫폼 제품</span>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-group-label">도메인 개념</div>
+
+    <div class="nav-tab" data-section="s3">
+      <span class="emoji">🔄</span><span class="label">배차·운행</span>
+    </div>
+    <div class="nav-tab" data-section="s4">
+      <span class="emoji">💳</span><span class="label">결제·요금</span>
+    </div>
+    <div class="nav-tab" data-section="s5">
+      <span class="emoji">👤</span><span class="label">회원·인증</span>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-group-label">기술·운영</div>
+
+    <div class="nav-tab" data-section="s6">
+      <span class="emoji">⚙️</span><span class="label">인프라·기술</span>
+    </div>
+    <div class="nav-tab" data-section="s7">
+      <span class="emoji">📍</span><span class="label">지역·파트너</span>
+    </div>
+    <div class="nav-tab" data-section="s8">
+      <span class="emoji">🖥</span><span class="label">운영·모니터링</span>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-group-label">툴 전용</div>
+
+    <div class="nav-tab" data-section="s10">
+      <span class="emoji">🗺</span><span class="label">맵툴</span>
+    </div>
+    <div class="nav-tab" data-section="s11">
+      <span class="emoji">🖥</span><span class="label">관제 시스템</span>
+    </div>
+    <div class="nav-tab" data-section="s12">
+      <span class="emoji">📊</span><span class="label">인사이트툴</span>
+    </div>
+
+    <div class="nav-divider"></div>
+    <div class="nav-group-label">참고</div>
+
+    <div class="nav-tab" data-section="s9">
+      <span class="emoji">📌</span><span class="label">약어 모음</span>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="no-results" id="no-results">
+    <svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+    </svg>
+    <p>검색 결과가 없습니다.</p>
+  </div>
+
+  <!-- ════ S0: 홈 ════ -->
+  <section class="section" id="s0">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#EFF6FF">🏠</div>
+      <div><h2>홈 · 빠른 참조</h2><span class="sub">혼용 주의 용어 · 최근 업데이트</span></div>
+    </div>
+
+    <!-- 혼용 주의 -->
+    <div style="margin-bottom:28px">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+        <span style="font-size:15px">⚠️</span>
+        <h3 style="font-size:15px;font-weight:800;color:#B45309">같은 의미, 다르게 쓰이는 용어</h3>
+        <span style="font-size:11px;color:#92400E;background:#FEF3C7;padding:2px 8px;border-radius:10px;font-weight:600">혼용 주의</span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:160px">✅ 공식 표현</th>
+              <th style="width:200px">❌ 잘못/혼용 표현</th>
+              <th style="width:120px">발견 위치</th>
+              <th>주의사항</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">수요응답교통</span> DRT</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">수요응답형 교통</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">수요응답형 버스</span></td>
+              <td><span class="tag orange">대외 문서</span></td>
+              <td class="c-desc">DRT의 공식 한국어 명칭. '형' 붙이면 오용. 대외 자료에서 반드시 '수요응답교통'으로 통일</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">운행유형</span> OperationType</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">Zone</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">서비스존</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">지역</span></td>
+              <td><span class="tag red">코드·문서</span></td>
+              <td class="c-desc">v4.10부터 <code style="font-family:monospace;font-size:11px">zone_id</code> → <code style="font-family:monospace;font-size:11px">operation_type_id</code> 전환. 레거시 코드에 zone 잔존하나 신규 문서엔 '운행유형' 사용</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">가호출</span> FakeDemand</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">임시호출</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">선호출</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">예비호출</span></td>
+              <td><span class="tag orange">구두·운영툴</span></td>
+              <td class="c-desc">배차 시도 전 사전 호출의 공식 명칭. 키오스크·DRT 모두 동일 개념 사용</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">실호출</span> RealDemand</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">확정호출</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">실제호출</span></td>
+              <td><span class="tag orange">구두</span></td>
+              <td class="c-desc">가호출에서 배차 확정 후 전환되는 호출의 공식 명칭</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">비히클앱</span></td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">차량앱</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">단말앱</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">탑재앱</span></td>
+              <td><span class="tag orange">구두</span></td>
+              <td class="c-desc">DRT 차량 내 단말에 설치되는 앱의 공식 명칭. Vehicle App</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">관제 시스템</span> / <span class="cp green">운영툴</span></td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">관제툴</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">모니터링 시스템</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">어드민</span></td>
+              <td><span class="tag orange">구두·문서</span></td>
+              <td class="c-desc">operation.shucle.com의 공식 명칭. '관제 시스템'(공식)과 '운영툴'(내부 약칭) 둘 다 허용</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">맵툴</span> / <span class="cp green">맵에디터</span></td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">지도 편집기</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">맵 관리자</span></td>
+              <td><span class="tag orange">구두</span></td>
+              <td class="c-desc">map.shucle.com의 공식 명칭. '맵툴'(내부), '맵에디터'(기획문서) 혼용 허용</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">이동완료</span> (DROPPED)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">탑승완료</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">하차완료</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">완료</span></td>
+              <td><span class="tag red">인사이트·운영툴</span></td>
+              <td class="c-desc">하차(dropped) 상태까지 완료된 호출의 공식 한국어. 탑승 후 목적지 도착까지 포함</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">개인형 이동수단</span> (PM)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">탈거리</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">PM 기기</span></td>
+              <td><span class="tag gray">내부</span></td>
+              <td class="c-desc">'탈거리'는 내부 별칭. 대외 자료엔 '개인형 이동수단' 또는 'PM' 사용</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">운영사</span> (Operator)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">운수사</span>와 혼용</td>
+              <td><span class="tag red">문서·구두</span></td>
+              <td class="c-desc"><strong>운영사</strong>(Operator): 플랫폼 계정 보유 관리 주체. <strong>운수사</strong>: 실제 차량 운행 담당 회사. 역할이 다르므로 구분 필요</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">정류장</span> (Stop Point)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">승차지</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">거점</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">탑승지</span></td>
+              <td><span class="tag orange">구두·문서</span></td>
+              <td class="c-desc">공식 명칭은 '정류장'. 승차/하차 모두 가능한 지점을 통칭</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">패스</span> (Pass)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">정기권</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">구독권</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">이용권</span></td>
+              <td><span class="tag orange">문서</span></td>
+              <td class="c-desc">플랫폼 내 공식 명칭은 '패스'. 대외 자료에서는 '정기권'으로 설명 가능</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534"><span class="cp green">호차</span> (Car No)</td>
+              <td><span style="color:#DC2626;text-decoration:line-through;font-size:12px">차번</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">차호</span> &nbsp; <span style="color:#DC2626;text-decoration:line-through;font-size:12px">차량번호</span></td>
+              <td><span class="tag orange">운영툴·구두</span></td>
+              <td class="c-desc">운영툴에서 차량을 식별하는 이름. <code style="font-family:monospace;font-size:11px">car_no</code> 필드. 번호판(plate_number)과 다른 개념</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- 최근 업데이트 -->
+    <div>
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div style="display:flex;align-items:center;gap:8px">
+          <span style="font-size:15px">🆕</span>
+          <h3 style="font-size:15px;font-weight:800;color:var(--primary)">최근 업데이트</h3>
+        </div>
+        <span id="last-updated" style="font-size:11px;color:var(--text-muted)">마지막 업데이트: 2026-07-16 08:00</span>
+      </div>
+      <div class="table-wrap" id="updates-table">
+        <table>
+          <thead><tr><th style="width:100px">날짜</th><th style="width:130px">카테고리</th><th style="width:160px">용어</th><th>변경 내용</th></tr></thead>
+          <tbody id="updates-body">
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px;white-space:nowrap">2026-07-16</td>
+              <td><span class="tag blue">맵툴</span></td>
+              <td class="c-term" style="font-size:13px">mobilityService<small>권한 기준 단위</small></td>
+              <td class="c-desc">맵툴 권한 명세서(maptool-permission-spec.md) 기반으로 PLATFORM / OPERATION 등급 체계 및 권한 도달 구조 추가</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px;white-space:nowrap">2026-07-16</td>
+              <td><span class="tag orange">관제 시스템</span></td>
+              <td class="c-term" style="font-size:13px">실시간DRT 화면<small>v4.13</small></td>
+              <td class="c-desc">관제 시스템 실시간DRT 화면 전용 용어 추가 (차량 상태값 5종·운행 상태값 8종·텔레메트리 상태·알림 뱃지 등)</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px;white-space:nowrap">2026-07-16</td>
+              <td><span class="tag green">인사이트툴</span></td>
+              <td class="c-term" style="font-size:13px">WAU / MAU</td>
+              <td class="c-desc">인사이트 주요지표(v4.10~) 반영. WAU/MAU 기준이 '실호출'이 아닌 <strong>가호출</strong>임을 명확히 표기</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px;white-space:nowrap">2026-07-16</td>
+              <td><span class="tag red">배차·운행</span></td>
+              <td class="c-term" style="font-size:13px">배차 실패 코드</td>
+              <td class="c-desc">MATCH_* 에러 코드(300~347) 전체 목록 추가. 운영툴 알림 카테고리(1급/2급)와 매핑</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12px;white-space:nowrap">2026-07-16</td>
+              <td><span class="tag purple">홈</span></td>
+              <td class="c-term" style="font-size:13px">혼용 주의 용어</td>
+              <td class="c-desc">같은 의미임에도 여러 표현이 혼용되는 13개 용어 추려서 홈 페이지에 추가. 공식 표현 기준 제시</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════ S1: 서비스 유형 ════ -->
+  <section class="section" id="s1">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#EEF2FF">🚌</div>
+      <div><h2>1. 서비스 유형</h2><span class="sub">셔클이 제공하는 이동수단 서비스의 종류</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">수요응답교통<small>핵심 서비스</small></td>
+            <td class="c-en">DRT · Demand Responsive Transit</td>
+            <td class="c-code"><span class="cp">DRT</span> <span class="cp yellow">DRTAttribute</span></td>
+            <td class="c-desc">고정 노선·시간표 없이 수요에 따라 유연 운행. <small>⚠ '수요응답형 교통·버스'는 오용</small></td>
+          </tr>
+          <tr>
+            <td class="c-term">노선형 운행</td>
+            <td class="c-en">Line · Fixed Route</td>
+            <td class="c-code"><span class="cp">LINE</span> <span class="cp yellow">LineAttribute</span></td>
+            <td class="c-desc">정해진 정류장과 타임테이블대로 운행하는 방식. DRT와 구별</td>
+          </tr>
+          <tr>
+            <td class="c-term">실시간 호출 DRT</td>
+            <td class="c-en">Real-time DRT</td>
+            <td class="c-code"><span class="cp">REALTIME</span></td>
+            <td class="c-desc">즉시 호출 후 배차받는 DRT 방식</td>
+          </tr>
+          <tr>
+            <td class="c-term">예약 DRT</td>
+            <td class="c-en">Advance Booking DRT</td>
+            <td class="c-code"><span class="cp">BOOKING</span></td>
+            <td class="c-desc">원하는 탑승 시간대를 미리 예약하는 DRT 방식</td>
+          </tr>
+          <tr>
+            <td class="c-term">바우처 택시</td>
+            <td class="c-en">Voucher Taxi</td>
+            <td class="c-code"><span class="cp">VOUCHER_TAXI</span></td>
+            <td class="c-desc">지자체·기관 지원금(바우처)을 사용하는 택시 서비스. 교통약자 대상</td>
+          </tr>
+          <tr>
+            <td class="c-term">개인형 이동수단<small>탈거리</small></td>
+            <td class="c-en">PM · Personal Mobility</td>
+            <td class="c-code"><span class="cp">PM</span> <span class="cp gray">proxy</span></td>
+            <td class="c-desc">전동킥보드·전기자전거 등 1인용 전동 이동수단. 내부 별칭 '탈거리'</td>
+          </tr>
+          <tr>
+            <td class="c-term">자율주행</td>
+            <td class="c-en">AV · Autonomous Vehicle</td>
+            <td class="c-code"><span class="cp purple">avgw</span> <span class="cp gray">supply.state</span></td>
+            <td class="c-desc">자율주행 차량 활용 서비스. 판교·강릉 등 실증 운영. 전용 게이트웨이(avgw) 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term">광역 노선</td>
+            <td class="c-en">Metropolitan Line</td>
+            <td class="c-code"><span class="cp">METROPOLITAN</span></td>
+            <td class="c-desc">여러 지역에 걸친 노선. Duration 기반 타임테이블 사용 (카카오 API 연계)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S2: 플랫폼 제품 ════ -->
+  <section class="section" id="s2">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#DCFCE7">📱</div>
+      <div><h2>2. 플랫폼 제품</h2><span class="sub">셔클이 운영하는 앱·툴·웹 서비스</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>제품명</th><th>대상 / URL</th><th>레포 / 코드명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">라이더앱<small>Rider App</small></td>
+            <td><span class="tag blue">승객</span></td>
+            <td class="c-code"><span class="cp">shucle-rider-android</span><br><span class="cp">shucle-rider-ios</span><br><span class="cp purple">apigw</span></td>
+            <td class="c-desc">DRT·택시·PM·킥보드 예약·이용 승객용 앱 (Android/iOS). API는 apigw 통해 30개+ 서비스 연결</td>
+          </tr>
+          <tr>
+            <td class="c-term">드라이버앱 (DRT)<small>Driver App</small></td>
+            <td><span class="tag green">DRT 기사</span></td>
+            <td class="c-code"><span class="cp">shucle-driver-android</span><br><span class="cp purple">drivergw</span></td>
+            <td class="c-desc">DRT 운행 기사용 앱. 배차 수신·경로 안내·운행 세션 관리</td>
+          </tr>
+          <tr>
+            <td class="c-term">비히클앱<small>Vehicle App</small></td>
+            <td><span class="tag green">DRT 차량 단말</span></td>
+            <td class="c-code"><span class="cp">shucle-vehicle-android</span><br><span class="cp purple">drivergw</span></td>
+            <td class="c-desc">차량 장착 단말 앱. 위치 전송·좌석 관리·탑승 확인</td>
+          </tr>
+          <tr>
+            <td class="c-term">드라이버앱 (택시)<small>Taxi Driver App</small></td>
+            <td><span class="tag orange">택시 기사</span></td>
+            <td class="c-code"><span class="cp">shucle-taxi-driver-android</span><br><span class="cp purple">taxidrivergw</span></td>
+            <td class="c-desc">택시 서비스 기사용 앱. 호출 수락·요금 처리. 전용 게이트웨이(taxidrivergw) 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term">키오스크<small>Kiosk</small></td>
+            <td><span class="tag blue">정류장 단말</span></td>
+            <td class="c-code"><span class="cp">shucle-kiosk-android</span><br><span class="cp purple">kioskgw</span><br><span class="cp green">FakeDemand</span></td>
+            <td class="c-desc">정류장 탑승 요청 단말. 가호출→실호출 2단계로 동작. 키오스크 상태는 Redis 관리</td>
+          </tr>
+          <tr>
+            <td class="c-term">관제 시스템<small>Operation Tool</small></td>
+            <td><span class="tag red">운영자·관리자</span><br>operation.shucle.com</td>
+            <td class="c-code"><span class="cp">shucle-operation-tool</span><br><span class="cp purple">opgw</span></td>
+            <td class="c-desc">운행 현황 실시간 모니터링·원격 관리·알림센터. insight 네임스페이스 이중 배포</td>
+          </tr>
+          <tr>
+            <td class="c-term">맵툴<small>Map Tool</small></td>
+            <td><span class="tag gray">맵 담당자</span><br>map.shucle.com</td>
+            <td class="c-code"><span class="cp">shucle-map-tool</span><br><span class="cp purple">shucle-zone</span></td>
+            <td class="c-desc">정류장·노선·서비스 구역 편집 도구. 편집 결과가 zone 서비스 DB에 반영</td>
+          </tr>
+          <tr>
+            <td class="c-term">인사이트<small>Insight</small></td>
+            <td><span class="tag gray">데이터·운영자</span><br>insight.shucle.com</td>
+            <td class="c-code"><span class="cp">shucle-insight</span></td>
+            <td class="c-desc">서비스 지표·이용 현황 데이터 분석 대시보드</td>
+          </tr>
+          <tr>
+            <td class="c-term">서포트 센터<small>Support Center</small></td>
+            <td><span class="tag gray">고객</span><br>support.shucle.com</td>
+            <td class="c-code"><span class="cp">shucle-support-center</span></td>
+            <td class="c-desc">이용 가이드·FAQ 고객 지원 웹사이트</td>
+          </tr>
+          <tr>
+            <td class="c-term">시뮬레이터<small>Simulator</small></td>
+            <td><span class="tag gray">기획·사업팀</span></td>
+            <td class="c-code"><span class="cp">shucle-simul</span><br><span class="cp">shucle-smatch</span></td>
+            <td class="c-desc">신규 사업지 도입 전 서비스 효과 시뮬레이션 도구</td>
+          </tr>
+          <tr>
+            <td class="c-term">콜에이전트<small>Call Agent</small></td>
+            <td><span class="tag gray">고객센터</span></td>
+            <td class="c-code"><span class="cp">shucle-callagent</span><br><span class="cp">shucle-callagent-web</span></td>
+            <td class="c-desc">AI 기반 자동 전화 응대 에이전트</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S3: 배차·운행 ════ -->
+  <section class="section" id="s3">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FEF3C7">🔄</div>
+      <div><h2>3. 배차 · 운행 핵심 개념</h2><span class="sub">수요·공급 매칭과 운행 흐름 도메인 용어</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">📞 호출 (Demand)</div>
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">수요 / 호출<small>Demand</small></td>
+            <td class="c-en">Demand</td>
+            <td class="c-code"><span class="cp">demand_id</span><br><span class="cp purple">shucle-demand</span></td>
+            <td class="c-desc">승객 탑승 요청 단위. 생성→배차→탑승→완료 상태 전이. shucle-demand 서비스 담당</td>
+          </tr>
+          <tr>
+            <td class="c-term">가호출<small>FakeDemand</small></td>
+            <td class="c-en">FakeDemand</td>
+            <td class="c-code"><span class="cp green">FAKE</span> <span class="cp gray">fake_demand_id</span></td>
+            <td class="c-desc">배차 시도 전 사전 호출. 매칭 성공 → 실호출 전환 / 실패 → 종료. 키오스크 동일 방식</td>
+          </tr>
+          <tr>
+            <td class="c-term">실호출<small>RealDemand</small></td>
+            <td class="c-en">RealDemand</td>
+            <td class="c-code"><span class="cp green">REAL</span></td>
+            <td class="c-desc">가호출에서 배차 확정 후 생성되는 실제 탑승 호출</td>
+          </tr>
+          <tr>
+            <td class="c-term">실시간 호출</td>
+            <td class="c-en">Real-time Demand</td>
+            <td class="c-code"><span class="cp">REALTIME</span></td>
+            <td class="c-desc">즉시 배차를 요청하는 호출 유형</td>
+          </tr>
+          <tr>
+            <td class="c-term">예약 호출</td>
+            <td class="c-en">Advance Booking</td>
+            <td class="c-code"><span class="cp">BOOKING</span> <span class="cp green">booking_matched</span></td>
+            <td class="c-desc">원하는 시간대 미리 예약하는 호출 유형. Early Match로 사전 배차</td>
+          </tr>
+          <tr>
+            <td class="c-term">우회비율</td>
+            <td class="c-en">Detour Ratio</td>
+            <td class="c-code"><span class="cp yellow">max_detour</span><br><span class="cp yellow">additional_max_detour</span></td>
+            <td class="c-desc">직통 대비 실제 이동시간 비율. 배차 정책에 max값 설정. 초과 시 품질 알림</td>
+          </tr>
+          <tr>
+            <td class="c-term">추가 대기시간</td>
+            <td class="c-en">Additional Waiting Duration</td>
+            <td class="c-code"><span class="cp yellow">additional_waiting_duration</span><br><span class="cp gray">notified_pick_time</span></td>
+            <td class="c-desc">배차 정책에서 허용하는 최대 대기시간. 초과 시 품질 알림(2-C) 발생</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🚌 차량 · 운행 (Supply)</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">공급 / 차량<small>Supply</small></td>
+            <td class="c-en">Supply</td>
+            <td class="c-code"><span class="cp">supply_id</span><br><span class="cp purple">shucle-supply</span><br><span class="cp purple">shucle-supplyloc</span></td>
+            <td class="c-desc">운행 중 차량 단위. 위치는 supplyloc(MongoDB), 상태는 supply(PostgreSQL+Redis) 관리</td>
+          </tr>
+          <tr>
+            <td class="c-term">운행 세션<small>Driver Session</small></td>
+            <td class="c-en">Driver Session</td>
+            <td class="c-code"><span class="cp green">ON</span> <span class="cp red">OFF</span> <span class="cp yellow">HOLD</span><br><span class="cp gray">session_id</span></td>
+            <td class="c-desc">드라이버가 운행 시작(ON)~종료(OFF)하는 한 단위. 운행 지역/스케줄이 세션 단위로 결정</td>
+          </tr>
+          <tr>
+            <td class="c-term">운행유형<small>OperationType</small></td>
+            <td class="c-en">OperationType</td>
+            <td class="c-code"><span class="cp yellow">operation_type_id</span><br><span class="cp gray">operationType</span></td>
+            <td class="c-desc">특정 지역·방식의 운행 설정 단위. 구(舊) zone_id 대체(v4.10~). 예: "세종 DRT", "은평 노선"</td>
+          </tr>
+          <tr>
+            <td class="c-term">매칭</td>
+            <td class="c-en">Matching</td>
+            <td class="c-code"><span class="cp purple">shucle-matching</span><br><span class="cp gray">match_result</span></td>
+            <td class="c-desc">호출(수요)과 차량(공급) 연결 알고리즘 처리. shucle-matching 서비스 담당</td>
+          </tr>
+          <tr>
+            <td class="c-term">배차 실패 코드</td>
+            <td class="c-en">Match Error Code</td>
+            <td class="c-code">
+              <span class="cp red">300</span> UNKNOWN<br>
+              <span class="cp red">301</span> UNAVAILABLE<br>
+              <span class="cp red">302</span> INTERNAL<br>
+              <span class="cp red">303</span> NO_SUPPLY_IN_SERVICE<br>
+              <span class="cp red">305</span> EXCEED_MAX_TRIALS<br>
+              <span class="cp red">307</span> NO_PICKUP_NEARBY<br>
+              <span class="cp red">308</span> NO_DROPOFF_NEARBY<br>
+              <span class="cp red">316</span> NO_SPACE_IN_SUPPLY
+            </td>
+            <td class="c-desc">배차 실패 시 반환되는 에러 코드. 300번대 MATCH_* prefix 사용. 운영툴 알림센터에 표시</td>
+          </tr>
+          <tr>
+            <td class="c-term">Zone<small>구 개념</small></td>
+            <td class="c-en">Zone (deprecated)</td>
+            <td class="c-code"><span class="cp gray">zone_id</span> <span class="cp red">→</span> <span class="cp yellow">operation_type_id</span></td>
+            <td class="c-desc">서비스 지리적 구역. v4.10부터 operation_type_id로 전환. 레거시 코드에 잔존</td>
+          </tr>
+          <tr>
+            <td class="c-term">정류장</td>
+            <td class="c-en">Stop Point</td>
+            <td class="c-code"><span class="cp">stop_point_id</span><br><span class="cp gray">service_zone_stop_points</span></td>
+            <td class="c-desc">승하차 지점. 맵툴에서 관리. ADR-009로 다중 zone 관계 테이블로 분리됨</td>
+          </tr>
+          <tr>
+            <td class="c-term">대기장소</td>
+            <td class="c-en">Waiting Point</td>
+            <td class="c-code"><span class="cp">waiting_stop_point_id</span></td>
+            <td class="c-desc">배차 대기 중 차량 대기 지점. 드라이버앱에서 변경 가능. 변경 시 운영툴 알림(3-C) 발생</td>
+          </tr>
+          <tr>
+            <td class="c-term">휴차지 / 차고지</td>
+            <td class="c-en">Off Point / Depot</td>
+            <td class="c-code"><span class="cp">off_point_id</span><br><span class="cp gray">MATCH_NO_OFFPOINT_FOUND=314</span></td>
+            <td class="c-desc">운행 세션 종료 후 차량 복귀 지점. 도착 처리로 세션 종료. 1km 이상 이격 시 알림(3-D)</td>
+          </tr>
+          <tr>
+            <td class="c-term">일시정차</td>
+            <td class="c-en">HOLD</td>
+            <td class="c-code"><span class="cp yellow">HOLD</span></td>
+            <td class="c-desc">운행 중 임시 정지 상태. 20분 초과 시 운영툴 알림(3-A) 발생</td>
+          </tr>
+          <tr>
+            <td class="c-term">라우팅</td>
+            <td class="c-en">Routing</td>
+            <td class="c-code"><span class="cp purple">shucle-routing</span><br><span class="cp gray">encoded_polyline</span><br><span class="cp gray">MATCH_CAR_ROUTING_FAILED=315</span></td>
+            <td class="c-desc">도로 경로 탐색. 내부 RoutingKit(C++/CGO) + 카카오 API 혼용. 경로는 Encoded Polyline으로 전달(ADR-007)</td>
+          </tr>
+          <tr>
+            <td class="c-term">좌석</td>
+            <td class="c-en">Seat</td>
+            <td class="c-code"><span class="cp gray">row</span> <span class="cp gray">col</span><br><span class="cp">seat_grid</span></td>
+            <td class="c-desc">차량 내 좌석. 2D 격자(row×col) 구조로 저장(ADR-042). MATCH_NO_SPACE=316으로 만차 감지</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🧠 매칭 알고리즘</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">Naive v3</td>
+            <td class="c-en">Basic DRT Matching</td>
+            <td class="c-code"><span class="cp">NAIVE_V3</span></td>
+            <td class="c-desc">기본 DRT 배차 알고리즘</td>
+          </tr>
+          <tr>
+            <td class="c-term">Line Match</td>
+            <td class="c-en">Line Matching</td>
+            <td class="c-code"><span class="cp">LINE_MATCH</span></td>
+            <td class="c-desc">노선형 운행 적용 매칭. 정류장 순서 고려</td>
+          </tr>
+          <tr>
+            <td class="c-term">Early Match</td>
+            <td class="c-en">Advance Booking Match</td>
+            <td class="c-code"><span class="cp">EARLY_MATCH</span><br><span class="cp gray">batch_match_cron</span></td>
+            <td class="c-desc">예약 호출 사전 배차. 크론으로 실행(feat-server-859)</td>
+          </tr>
+          <tr>
+            <td class="c-term">Pooling</td>
+            <td class="c-en">Shared Ride</td>
+            <td class="c-code"><span class="cp">POOLING</span></td>
+            <td class="c-desc">여러 승객 한 차량 동시 배차 합승</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S4: 결제·요금 ════ -->
+  <section class="section" id="s4">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FEE2E2">💳</div>
+      <div><h2>4. 결제 · 요금</h2><span class="sub">결제 수단, 요금 체계, 패널티 관련 용어</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">패스<small>정기권</small></td>
+            <td class="c-en">Pass · Subscription</td>
+            <td class="c-code"><span class="cp purple">shucle-pass-v2</span><br><span class="cp gray">pass_id</span><br><span class="cp gray">pass_status</span></td>
+            <td class="c-desc">구독형 요금제. Redis + PostgreSQL 이중 저장(ADR-039). 가입/갱신/해지 관리</td>
+          </tr>
+          <tr>
+            <td class="c-term">이응패스</td>
+            <td class="c-en">Eung Pass</td>
+            <td class="c-code"><span class="cp yellow">EUNG_PASS</span><br><span class="cp purple">shucle-external-pay</span></td>
+            <td class="c-desc">세종시 전용 정기권. 외부 기관 연동 배치(external-pay, Spring Batch)로 정산</td>
+          </tr>
+          <tr>
+            <td class="c-term">K패스</td>
+            <td class="c-en">K-Pass</td>
+            <td class="c-code"><span class="cp yellow">K_PASS</span><br><span class="cp purple">shucle-external-pay</span></td>
+            <td class="c-desc">국토부 주관 교통 적립 혜택 카드 연동. external-pay 배치로 처리</td>
+          </tr>
+          <tr>
+            <td class="c-term">바우처</td>
+            <td class="c-en">Voucher</td>
+            <td class="c-code"><span class="cp">voucher_id</span><br><span class="cp yellow">VOUCHER</span></td>
+            <td class="c-desc">지자체·기관이 특정 이용자에게 제공하는 교통 지원금</td>
+          </tr>
+          <tr>
+            <td class="c-term">정기결제</td>
+            <td class="c-en">Subscription Billing</td>
+            <td class="c-code"><span class="cp purple">shucle-billing</span><br><span class="cp gray">billing_cron</span></td>
+            <td class="c-desc">패스 요금 월별 자동 청구. billing 서비스에서 5종 크론으로 처리</td>
+          </tr>
+          <tr>
+            <td class="c-term">미수금</td>
+            <td class="c-en">Unpaid Amount</td>
+            <td class="c-code"><span class="cp red">UNPAID</span><br><span class="cp gray">unpaid_amount</span></td>
+            <td class="c-desc">결제 실패로 미납된 요금. 크론 배치로 자동 회수 시도</td>
+          </tr>
+          <tr>
+            <td class="c-term">패널티</td>
+            <td class="c-en">Penalty</td>
+            <td class="c-code"><span class="cp red">PAY</span> <span class="cp red">BLOCK</span><br><span class="cp gray">penalty_type</span><br><span class="cp gray">is_penalty</span></td>
+            <td class="c-desc">취소 정책 위반 시 PAY(금액 차감) 또는 BLOCK(이용 제한) 유형으로 부과</td>
+          </tr>
+          <tr>
+            <td class="c-term">패널티 면제</td>
+            <td class="c-en">Penalty Exemption</td>
+            <td class="c-code"><span class="cp gray">exempt_count</span><br><span class="cp gray">penalty_exempt_until</span></td>
+            <td class="c-desc">면제 카운트 이내 취소 시 패널티 미적용. 로직은 billing-penalty 컨셉 문서 참조</td>
+          </tr>
+          <tr>
+            <td class="c-term">PG</td>
+            <td class="c-en">Payment Gateway</td>
+            <td class="c-code"><span class="cp purple">shucle-paypg</span><br><span class="cp gray">mid</span><br><span class="cp gray">bill_key</span></td>
+            <td class="c-desc">결제대행사(블루월넛). Java Stateless 어댑터(paypg)로 연동. 빌키 MID / 결제 MID 분리(ADR-032)</td>
+          </tr>
+          <tr>
+            <td class="c-term">MID</td>
+            <td class="c-en">Merchant ID</td>
+            <td class="c-code"><span class="cp gray">bill_mid</span><br><span class="cp gray">pay_mid</span></td>
+            <td class="c-desc">PG 가맹점 ID. 지역·사업자별 다중 MID 전략. 빌키 등록용 / 실결제용 분리 운영</td>
+          </tr>
+          <tr>
+            <td class="c-term">교통카드 결제</td>
+            <td class="c-en">T-pay · NFC Pay</td>
+            <td class="c-code"><span class="cp purple">shucle-tpay</span><br><span class="cp gray">tpay_v1</span> <span class="cp gray">tpay_v2</span></td>
+            <td class="c-desc">T-money·Cashbee NFC 탑승·하차 결제. v1/v2 두 버전. 이비카드/티머니 서버와 통신</td>
+          </tr>
+          <tr>
+            <td class="c-term">카드 등록 / 실결제</td>
+            <td class="c-en">Card / Pay</td>
+            <td class="c-code"><span class="cp purple">shucle-pay</span><br><span class="cp gray">card_id</span><br><span class="cp gray">payment_id</span></td>
+            <td class="c-desc">카드 등록·실결제·취소. 블루월넛 PG + 카드사 연동. shucle-pay 서비스 담당</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S5: 회원·인증 ════ -->
+  <section class="section" id="s5">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#DCFCE7">👤</div>
+      <div><h2>5. 회원 · 인증</h2><span class="sub">사용자 계정과 인증 관련 용어</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>용어</th><th>대상</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">라이더<small>Rider</small></td>
+            <td><span class="tag blue">승객</span></td>
+            <td class="c-code"><span class="cp purple">shucle-user</span><br><span class="cp gray">user_id</span></td>
+            <td class="c-desc">셔클 앱으로 이동 서비스를 이용하는 일반 사용자</td>
+          </tr>
+          <tr>
+            <td class="c-term">드라이버<small>Driver</small></td>
+            <td><span class="tag green">기사</span></td>
+            <td class="c-code"><span class="cp purple">shucle-driver</span><br><span class="cp gray">driver_id</span></td>
+            <td class="c-desc">셔클 플랫폼 등록 차량 운전 기사</td>
+          </tr>
+          <tr>
+            <td class="c-term">운영사<small>Operator</small></td>
+            <td><span class="tag orange">사업자</span></td>
+            <td class="c-code"><span class="cp purple">shucle-operator</span><br><span class="cp gray">operator_id</span></td>
+            <td class="c-desc">운수사 포함 서비스 운영 사업 주체. Firebase 인증 위임, 권한은 자체 DB. ADR-040, ADR-011</td>
+          </tr>
+          <tr>
+            <td class="c-term">운영자(관리자)<small>OpUser</small></td>
+            <td><span class="tag red">관리자</span></td>
+            <td class="c-code"><span class="cp gray">op_user_id</span><br><span class="cp gray">opuser_id</span></td>
+            <td class="c-desc">운영툴 로그인 담당자. 원격 취소·중도 하차·패널티 부과 등 처리 권한</td>
+          </tr>
+          <tr>
+            <td class="c-term">외국인 회원<small>Foreigner</small></td>
+            <td><span class="tag gray">외국인 승객</span></td>
+            <td class="c-code"><span class="cp yellow">FOREIGNER</span><br><span class="cp gray">register_type</span></td>
+            <td class="c-desc">내국인 인증 없이 가입한 외국인 이용자 타입. v4.8에서 FOREIGNER 타입 추가(ADR-019)</td>
+          </tr>
+          <tr>
+            <td class="c-term">Firebase 인증</td>
+            <td><span class="tag blue">라이더·운영사</span></td>
+            <td class="c-code"><span class="cp purple">shucle-auth</span><br><span class="cp gray">firebase_token</span><br><span class="cp gray">id_token</span></td>
+            <td class="c-desc">소셜 로그인·토큰 발급. shucle-auth로 독립화(ADR-004). OAuth 토큰 기반</td>
+          </tr>
+          <tr>
+            <td class="c-term">MOIS 연동<small>행정안전부</small></td>
+            <td><span class="tag gray">공공서비스</span></td>
+            <td class="c-code"><span class="cp purple">shucle-mois</span><br><span class="cp gray">gpki_cert</span></td>
+            <td class="c-desc">GPKI 인증서 기반 공공 서비스 연동. JNI Linux 전용 → Java/Spring Boot 별도 서비스(ADR-027)</td>
+          </tr>
+          <tr>
+            <td class="c-term">OAuth 2.0</td>
+            <td><span class="tag orange">운영툴</span></td>
+            <td class="c-code"><span class="cp purple">shucle-oauth</span><br><span class="cp gray">access_token</span><br><span class="cp gray">refresh_token</span></td>
+            <td class="c-desc">운영툴 전용 OAuth2 서버. shucle-auth에 위임, DB 없는 경량 구조(ADR-026)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S6: 인프라·기술 ════ -->
+  <section class="section" id="s6">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#F3E8FF">⚙️</div>
+      <div><h2>6. 인프라 · 기술</h2><span class="sub">백엔드 마이크로서비스 구조와 기술 스택</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">🔗 통신 · 메시징</div>
+      <table>
+        <thead><tr><th>용어</th><th>영문</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">gRPC</td>
+            <td class="c-en">Google Remote Procedure Call</td>
+            <td class="c-code"><span class="cp purple">shucle-proto</span><br><span class="cp gray">.proto</span> <span class="cp gray">pb.go</span></td>
+            <td class="c-desc">서비스 간 실시간 통신 프레임워크. 44개+ 서비스 연결. shucle-proto에서 인터페이스 정의</td>
+          </tr>
+          <tr>
+            <td class="c-term">Kafka</td>
+            <td class="c-en">Apache Kafka</td>
+            <td class="c-code"><span class="cp gray">demand.state</span><br><span class="cp gray">supply.state</span><br><span class="cp gray">taxisupply.scheduler</span></td>
+            <td class="c-desc">서비스 간 비동기 이벤트 스트리밍. 핵심 토픽: demand.state, supply.state 등</td>
+          </tr>
+          <tr>
+            <td class="c-term">DLT</td>
+            <td class="c-en">Dead Letter Topic</td>
+            <td class="c-code"><span class="cp red">{topic}.dlt</span><br><span class="cp gray">dlt_replay</span></td>
+            <td class="c-desc">Kafka 처리 실패 메시지 보관 큐. supply·demand·billing 등 적용(ADR-002). 재처리(replay) 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">SSE</td>
+            <td class="c-en">Server-Sent Events</td>
+            <td class="c-code"><span class="cp purple">apigw</span><br><span class="cp gray">stream_event</span></td>
+            <td class="c-desc">라이더 앱에 배차 상태를 단방향 실시간 스트리밍. apigw에서 처리</td>
+          </tr>
+          <tr>
+            <td class="c-term">Protobuf</td>
+            <td class="c-en">Protocol Buffers</td>
+            <td class="c-code"><span class="cp gray">bytea</span><br><span class="cp purple">shucle-proto</span></td>
+            <td class="c-desc">서비스 간 데이터 직렬화. PostgreSQL bytea 컬럼에 바이너리 저장(ADR-001)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🗄 저장소</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">PostgreSQL<small>PostGIS</small></td>
+            <td class="c-en">PostgreSQL + PostGIS</td>
+            <td class="c-code"><span class="cp gray">PostGIS</span><br><span class="cp gray">GORM</span><br><span class="cp gray">bytea</span></td>
+            <td class="c-desc">메인 관계형 DB. PostGIS로 공간 좌표·구역 처리. protobuf는 bytea로 직렬화 저장(ADR-001)</td>
+          </tr>
+          <tr>
+            <td class="c-term">Redis</td>
+            <td class="c-en">Redis Cluster</td>
+            <td class="c-code"><span class="cp gray">CROSSSLOT</span> 주의<br><span class="cp gray">pub/sub</span></td>
+            <td class="c-desc">실시간 상태 캐시 (차량 위치, 세션, 키오스크, 패스). Cluster CrossSlot 에러 주의(TBL-003)</td>
+          </tr>
+          <tr>
+            <td class="c-term">MongoDB</td>
+            <td class="c-en">MongoDB Replica</td>
+            <td class="c-code"><span class="cp purple">shucle-supplyloc</span><br><span class="cp purple">shucle-demandloc</span></td>
+            <td class="c-desc">GPS 위치 데이터 저장소(ADR-024). 읽기 preference 설정 주의(TBL-020)</td>
+          </tr>
+          <tr>
+            <td class="c-term">OpenSearch</td>
+            <td class="c-en">AWS OpenSearch</td>
+            <td class="c-code"><span class="cp purple">shucle-place</span><br><span class="cp gray">poi_index</span></td>
+            <td class="c-desc">장소 검색 POI 인덱스(ADR-010). shucle-place에서 장소 검색에 활용</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🏗 서비스 구조</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">API 게이트웨이<small>GW</small></td>
+            <td class="c-en">API Gateway</td>
+            <td class="c-code"><span class="cp purple">apigw</span> 라이더<br><span class="cp purple">drivergw</span> 기사<br><span class="cp purple">opgw</span> 운영툴<br><span class="cp purple">kioskgw</span> 키오스크<br><span class="cp purple">avgw</span> 자율주행<br><span class="cp purple">taxidrivergw</span> 택시기사<br><span class="cp purple">webgw</span> 웹</td>
+            <td class="c-desc">클라이언트 유형별 전용 API 진입점. gRPC + Kafka 구독. 각 GW는 전담 서비스로 분리</td>
+          </tr>
+          <tr>
+            <td class="c-term">Outbox 패턴</td>
+            <td class="c-en">Outbox Pattern</td>
+            <td class="c-code"><span class="cp gray">outbox_v2</span><br><span class="cp gray">outbox_event</span></td>
+            <td class="c-desc">DB 트랜잭션 + Kafka 이벤트 발행 원자적 처리(ADR-030, ADR-037). 데이터 일관성 보장</td>
+          </tr>
+          <tr>
+            <td class="c-term">ADR</td>
+            <td class="c-en">Architecture Decision Record</td>
+            <td class="c-code"><span class="cp gray">ADR-001</span>~<span class="cp gray">ADR-046</span></td>
+            <td class="c-desc">아키텍처 결정 내역 문서. shucle-backend-wiki/decisions/ 폴더에 보관</td>
+          </tr>
+          <tr>
+            <td class="c-term">gopkg</td>
+            <td class="c-en">Shared Go Library</td>
+            <td class="c-code"><span class="cp purple">shucle-gopkg</span><br><span class="cp gray">shucle-svc-gopkg</span></td>
+            <td class="c-desc">gRPC·DB·Kafka·Logging 공통 코드 Go 라이브러리. 전 서비스에서 import하여 사용</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S7: 지역·파트너 ════ -->
+  <section class="section" id="s7">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FEF3C7">📍</div>
+      <div><h2>7. 지역 · 파트너</h2><span class="sub">서비스 운영 지역 및 주요 협력사</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">🗺 서비스 지역</div>
+      <table>
+        <thead><tr><th>지역명</th><th>연동 레포 / 코드</th><th>서비스 특이사항</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">세종</td>
+            <td class="c-code"><span class="cp">sejong-operation</span><br><span class="cp">shucle-cs-issue-sejong</span><br><span class="cp yellow">EUNG_PASS</span></td>
+            <td class="c-desc">DRT 주요 지역. KCTC(세종도시교통공사) 협력. 이응패스 운영. CS·운수사 소통 레포 별도</td>
+          </tr>
+          <tr>
+            <td class="c-term">은평</td>
+            <td class="c-code"><span class="cp">shucle-cs-issue-eunpyeong</span></td>
+            <td class="c-desc">서울 은평구 DRT 서비스. CS 이슈 전용 레포 운영</td>
+          </tr>
+          <tr>
+            <td class="c-term">남양</td>
+            <td class="c-code"><span class="cp">namyang-operation</span><br><span class="cp">shucle-cs-issue-namyang</span></td>
+            <td class="c-desc">현대차 남양연구소 일대 서비스. CS 이슈·운영 소통 레포 별도</td>
+          </tr>
+          <tr>
+            <td class="c-term">파주</td>
+            <td class="c-code"><span class="cp">shucle-cs-issue-paju</span><br><span class="cp">shucle-cs-issue-pajusjgt</span></td>
+            <td class="c-desc">경기 파주 DRT. 선진GT 운수사 협력. CS 이슈 레포 별도</td>
+          </tr>
+          <tr>
+            <td class="c-term">판교</td>
+            <td class="c-code"><span class="cp">pangyo-av-operation</span><br><span class="cp purple">avgw</span></td>
+            <td class="c-desc">현대차 판교 자율주행 실증 지역. AV 전용 게이트웨이(avgw) 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term">충북</td>
+            <td class="c-code"><span class="cp">shucle-cs-issue-chungbuk</span></td>
+            <td class="c-desc">충청북도 초광역 관광플랫폼 서비스</td>
+          </tr>
+          <tr>
+            <td class="c-term">제천</td>
+            <td class="c-code"><span class="cp">jecheon-drt-report</span></td>
+            <td class="c-desc">충북 제천시 DRT. 운영 성과 보고 레포 공개</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🤝 협력사 · 파트너</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">KCTC<small>세종도시교통공사</small></td>
+            <td class="c-en">Korea City Transit Corp</td>
+            <td class="c-code"><span class="cp">sejong-operation</span></td>
+            <td class="c-desc">세종시 DRT 운수사. 운영툴로 운행 모니터링. 별도 소통 레포 운영</td>
+          </tr>
+          <tr>
+            <td class="c-term">코나투스</td>
+            <td class="c-en">Konatus</td>
+            <td class="c-code"><span class="cp purple">shucle-taxi</span><br><span class="cp gray">taxi_service_type</span></td>
+            <td class="c-desc">셔클 택시 외부 사업자. shucle-taxi 서비스로 호출·상태 연동</td>
+          </tr>
+          <tr>
+            <td class="c-term">블루월넛</td>
+            <td class="c-en">Bluewalnut (PG)</td>
+            <td class="c-code"><span class="cp purple">shucle-paypg</span><br><span class="cp gray">bill_key</span> <span class="cp gray">mid</span></td>
+            <td class="c-desc">결제대행(PG) 사업자. Java Stateless 어댑터 연동. 지역별 다중 MID 운영</td>
+          </tr>
+          <tr>
+            <td class="c-term">지쿠터</td>
+            <td class="c-en">Gcooter</td>
+            <td class="c-code"><span class="cp purple">shucle-proxy</span></td>
+            <td class="c-desc">PM(전동킥보드) 사업자. HTTP 프록시(shucle-proxy)로 연동</td>
+          </tr>
+          <tr>
+            <td class="c-term">T-money / 이비카드</td>
+            <td class="c-en">T-money / EBcard</td>
+            <td class="c-code"><span class="cp purple">shucle-tpay</span><br><span class="cp gray">tpay_v1</span> <span class="cp gray">tpay_v2</span></td>
+            <td class="c-desc">교통카드 NFC 결제 서버. 장애 시 운영툴 알림(1-G) 발생</td>
+          </tr>
+          <tr>
+            <td class="c-term">MnSoft</td>
+            <td class="c-en">MnSoft (Map Data)</td>
+            <td class="c-code"><span class="cp">shucle-map-data</span></td>
+            <td class="c-desc">맵 데이터 제공사. 지도 데이터 업데이트를 shucle-map-data 레포로 소통</td>
+          </tr>
+          <tr>
+            <td class="c-term">카카오맵 API</td>
+            <td class="c-en">Kakao Map API</td>
+            <td class="c-code"><span class="cp gray">kakao_api_key</span><br><span class="cp gray">routing_provider</span></td>
+            <td class="c-desc">장소 검색·도보 경로 탐색 API. 내부 라우팅 fallback으로 활용(ADR-008)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S8: 운영·모니터링 ════ -->
+  <section class="section" id="s8">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FEE2E2">🖥</div>
+      <div><h2>8. 운영 · 모니터링</h2><span class="sub">운영팀·관리자가 일상적으로 사용하는 용어</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>용어</th><th>채널 / 구분</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">알림센터</td>
+            <td><span class="tag gray">운영툴 내부</span></td>
+            <td class="c-code"><span class="cp purple">shucle-monitor</span><br><span class="cp gray">alert_category</span></td>
+            <td class="c-desc">운영툴 내 실시간 장애·품질 알림 통합 화면. shucle-monitor 서비스가 Kafka 7종 구독해 처리</td>
+          </tr>
+          <tr>
+            <td class="c-term">장애 상황 알림<small>1급</small></td>
+            <td><span class="tag red">#shucle-emergency-alerts</span></td>
+            <td class="c-code"><span class="cp red">MATCH_UNKNOWN=300</span><br><span class="cp red">MATCH_UNAVAILABLE=301</span><br><span class="cp red">MATCH_INTERNAL=302</span></td>
+            <td class="c-desc">가호출·실호출 배차 실패, 서버 오류. 즉각 대응 필요. 1분 주기 슬랙봇 알림</td>
+          </tr>
+          <tr>
+            <td class="c-term">호출 품질 알림<small>2급</small></td>
+            <td><span class="tag orange">#shucle-monitor-alerts</span></td>
+            <td class="c-code"><span class="cp yellow">MATCH_NO_PICKUP_NEARBY=307</span><br><span class="cp yellow">MATCH_NO_DROPOFF_NEARBY=308</span><br><span class="cp yellow">MATCH_NO_SPACE=316</span></td>
+            <td class="c-desc">맵 데이터 관련 배차 실패, 만차, 대기시간·우회비율 초과. 서비스 품질 관련 2급 알림</td>
+          </tr>
+          <tr>
+            <td class="c-term">차량 운행 알림</td>
+            <td><span class="tag blue">#shucle-operation-alerts</span></td>
+            <td class="c-code"><span class="cp yellow">HOLD</span><br><span class="cp gray">supply_network_error</span></td>
+            <td class="c-desc">일시정차 20분 초과, 드라이버앱 네트워크 오류 5분 초과, 라우팅 영역 이탈 등</td>
+          </tr>
+          <tr>
+            <td class="c-term">기타 관리 알림</td>
+            <td><span class="tag gray">#shucle-admin-alerts</span></td>
+            <td class="c-code"><span class="cp gray">schedule_unregistered</span><br><span class="cp gray">remote_cancel</span></td>
+            <td class="c-desc">스케줄 미등록(21시 체크), 관리자 원격 처리 기록 등</td>
+          </tr>
+          <tr>
+            <td class="c-term">원격 취소</td>
+            <td><span class="tag orange">관리자 기능</span></td>
+            <td class="c-code"><span class="cp gray">remote_cancel</span><br><span class="cp gray">is_penalty</span><br><span class="cp gray">opuser_id</span></td>
+            <td class="c-desc">관리자가 진행 중 호출을 강제 취소. 패널티 부과 여부 선택. 슬랙 알림(4-B) 발생</td>
+          </tr>
+          <tr>
+            <td class="c-term">원격 중도 하차</td>
+            <td><span class="tag orange">관리자 기능</span></td>
+            <td class="c-code"><span class="cp gray">remote_drop</span><br><span class="cp gray">early_drop</span></td>
+            <td class="c-desc">관리자가 목적지 전 승객을 강제 하차 처리</td>
+          </tr>
+          <tr>
+            <td class="c-term">원격 일시정차</td>
+            <td><span class="tag orange">관리자 기능</span></td>
+            <td class="c-code"><span class="cp yellow">HOLD</span><br><span class="cp gray">remote_hold</span></td>
+            <td class="c-desc">관리자가 운행 중 차량을 원격으로 HOLD 상태로 전환</td>
+          </tr>
+          <tr>
+            <td class="c-term">BTS</td>
+            <td><span class="tag gray">버그 트래킹</span></td>
+            <td class="c-code"><span class="cp">shucle-bts-rider</span><br><span class="cp">shucle-bts-driver</span><br><span class="cp">shucle-bts-kiosk</span><br><span class="cp">shucle-bts-optool</span><br><span class="cp">shucle-bts-maptool</span><br><span class="cp">shucle-bts-taxidriver</span></td>
+            <td class="c-desc">앱별 QA 이슈 관리 GitHub 레포. 이슈 번호로 백엔드 wiki에서 즉석 조회 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">릴리즈 버전</td>
+            <td><span class="tag gray">배포</span></td>
+            <td class="c-code"><span class="cp gray">v4.7</span> <span class="cp gray">v4.8</span> <span class="cp gray">v4.9</span><br><span class="cp green">v4.10</span> <span class="cp gray">v4.11</span></td>
+            <td class="c-desc">서버 버전 번호 체계. v4.10은 zone_id→operation_type_id 전환 대규모 개편(ADR-003, 386건)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S9: 약어 모음 ════ -->
+  <section class="section" id="s9">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#F1F5F9">📌</div>
+      <div><h2>9. 약어 모음</h2><span class="sub">자주 등장하는 약어 한눈에 정리</span></div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th style="width:90px">약어</th><th style="width:280px">풀이 (영문)</th><th>개발 코드</th><th>한국어 설명</th></tr></thead>
+        <tbody>
+          <tr><td class="c-term">DRT</td><td class="c-en">Demand Responsive Transit</td><td class="c-code"><span class="cp">DRT</span> <span class="cp yellow">DRTAttribute</span></td><td class="c-desc">수요응답교통. 셔클 핵심 서비스 유형</td></tr>
+          <tr><td class="c-term">PM</td><td class="c-en">Personal Mobility</td><td class="c-code"><span class="cp">PM</span></td><td class="c-desc">개인형 이동수단 (킥보드·자전거). <em>Product Manager의 PM과 혼동 주의</em></td></tr>
+          <tr><td class="c-term">AV</td><td class="c-en">Autonomous Vehicle</td><td class="c-code"><span class="cp purple">avgw</span></td><td class="c-desc">자율주행차. 전용 게이트웨이(avgw) 사용</td></tr>
+          <tr><td class="c-term">PG</td><td class="c-en">Payment Gateway</td><td class="c-code"><span class="cp purple">shucle-paypg</span></td><td class="c-desc">결제대행사 (블루월넛). Java 어댑터로 연동</td></tr>
+          <tr><td class="c-term">MID</td><td class="c-en">Merchant ID</td><td class="c-code"><span class="cp gray">bill_mid</span> <span class="cp gray">pay_mid</span></td><td class="c-desc">PG 가맹점 ID. 빌키/결제 MID 분리 운영</td></tr>
+          <tr><td class="c-term">PO</td><td class="c-en">Product Owner</td><td class="c-code">—</td><td class="c-desc">제품 책임자</td></tr>
+          <tr><td class="c-term">MCS</td><td class="c-en">Mobility Connectivity Solution</td><td class="c-code">—</td><td class="c-desc">모빌리티사업부 / MCS Lab (셔클 개발·운영 조직)</td></tr>
+          <tr><td class="c-term">BTS</td><td class="c-en">Bug Tracking System</td><td class="c-code"><span class="cp">shucle-bts-*</span></td><td class="c-desc">버그 추적 시스템. 앱별 레포로 분리</td></tr>
+          <tr><td class="c-term">QA</td><td class="c-en">Quality Assurance</td><td class="c-code">—</td><td class="c-desc">품질 보증. BTS 레포 + QA 대시보드로 관리</td></tr>
+          <tr><td class="c-term">FCM</td><td class="c-en">Firebase Cloud Messaging</td><td class="c-code"><span class="cp purple">shucle-push</span></td><td class="c-desc">모바일 푸시 알림 발송 서비스</td></tr>
+          <tr><td class="c-term">NCP</td><td class="c-en">Naver Cloud Platform</td><td class="c-code"><span class="cp purple">shucle-push</span></td><td class="c-desc">SMS·알림 발송 인프라</td></tr>
+          <tr><td class="c-term">SES</td><td class="c-en">Simple Email Service</td><td class="c-code"><span class="cp purple">shucle-push</span></td><td class="c-desc">AWS 이메일 발송 서비스</td></tr>
+          <tr><td class="c-term">MOIS</td><td class="c-en">Ministry of the Interior and Safety</td><td class="c-code"><span class="cp purple">shucle-mois</span></td><td class="c-desc">행정안전부. GPKI 인증 연동 대상 기관</td></tr>
+          <tr><td class="c-term">GPKI</td><td class="c-en">Gov't Public Key Infrastructure</td><td class="c-code"><span class="cp gray">gpki_cert</span></td><td class="c-desc">공공 전자인증서 체계. Linux 전용 JNI 라이브러리</td></tr>
+          <tr><td class="c-term">gRPC</td><td class="c-en">Google Remote Procedure Call</td><td class="c-code"><span class="cp purple">shucle-proto</span></td><td class="c-desc">서비스 간 통신 프레임워크. 44개+ 서비스 연결</td></tr>
+          <tr><td class="c-term">DLT</td><td class="c-en">Dead Letter Topic</td><td class="c-code"><span class="cp red">{topic}.dlt</span></td><td class="c-desc">Kafka 처리 실패 메시지 재처리 큐</td></tr>
+          <tr><td class="c-term">SSE</td><td class="c-en">Server-Sent Events</td><td class="c-code"><span class="cp purple">apigw</span></td><td class="c-desc">서버→클라이언트 실시간 단방향 스트리밍</td></tr>
+          <tr><td class="c-term">ADR</td><td class="c-en">Architecture Decision Record</td><td class="c-code"><span class="cp gray">ADR-001~046</span></td><td class="c-desc">아키텍처 결정 문서. 046개 기록</td></tr>
+          <tr><td class="c-term">KPI</td><td class="c-en">Key Performance Indicator</td><td class="c-code">—</td><td class="c-desc">핵심 성과 지표</td></tr>
+          <tr><td class="c-term">KCTC</td><td class="c-en">Korea City Transit Corp.</td><td class="c-code"><span class="cp">sejong-operation</span></td><td class="c-desc">세종도시교통공사. 세종 DRT 운수사</td></tr>
+          <tr><td class="c-term">POI</td><td class="c-en">Point of Interest</td><td class="c-code"><span class="cp purple">shucle-place</span></td><td class="c-desc">관심 지점 (장소 검색 단위). OpenSearch 인덱스</td></tr>
+          <tr><td class="c-term">TBL</td><td class="c-en">Troubleshooting Log</td><td class="c-code"><span class="cp gray">TBL-001~020</span></td><td class="c-desc">장애·이슈 추적 문서. 020개 기록</td></tr>
+          <tr><td class="c-term">CS</td><td class="c-en">Customer Service</td><td class="c-code"><span class="cp">shucle-cs-issue-*</span></td><td class="c-desc">고객 서비스. 지역별 레포로 MCS·고객센터·운수사 소통</td></tr>
+          <tr><td class="c-term">NFC</td><td class="c-en">Near Field Communication</td><td class="c-code"><span class="cp purple">shucle-tpay</span></td><td class="c-desc">근거리 무선통신. 교통카드 결제(T-pay)에 사용</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+</div><!-- /.body-wrap -->
+
+<footer style="margin-left:220px">
+  셔클(Shucle) 서비스 용어집 &nbsp;·&nbsp; 출처: hkmc-airlab GitHub &nbsp;·&nbsp; 2026.07 기준 &nbsp;·&nbsp; 매일 08:00 자동 업데이트
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="맨 위로">↑</button>
+
+  <!-- ════ S10: 맵툴 전용 용어 ════ -->
+  <section class="section" id="s10">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FEF9C3">🗺</div>
+      <div><h2>10. 맵툴 (Map Tool) 전용 용어</h2><span class="sub">map.shucle.com — 정류장·노선·구역 편집 도구 전용 개념</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">🔐 권한 체계</div>
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">op-user<small>운영툴 사용자</small></td>
+            <td class="c-en">Operator User</td>
+            <td class="c-code"><span class="cp gray">op_user_id</span><br><span class="cp purple">shucle-operator</span></td>
+            <td class="c-desc">관제시스템 기반 맵툴 접근 사용자. 모든 맵툴 편집 권한의 주체</td>
+          </tr>
+          <tr>
+            <td class="c-term">operator<small>관리기관</small></td>
+            <td class="c-en">Operator</td>
+            <td class="c-code"><span class="cp yellow">PLATFORM</span><br><span class="cp yellow">OPERATION</span></td>
+            <td class="c-desc">맵툴 편집 권한의 기준이 되는 관리기관 단위. PLATFORM / OPERATION 두 등급으로 분류</td>
+          </tr>
+          <tr>
+            <td class="c-term">PLATFORM 등급</td>
+            <td class="c-en">Platform (등급)</td>
+            <td class="c-code"><span class="cp yellow">PLATFORM</span></td>
+            <td class="c-desc">플랫폼 공급사(셔클 등) 계정. 전체 맵툴 기능에 제약 없이 접근 가능. 행정구역 필터 미적용</td>
+          </tr>
+          <tr>
+            <td class="c-term">OPERATION 등급</td>
+            <td class="c-en">Operation (등급)</td>
+            <td class="c-code"><span class="cp yellow">OPERATION</span></td>
+            <td class="c-desc">운영사(TCK, 경기교통공사 등) 계정. 보유한 mobilityService 범위 내에서만 편집 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">mobilityService<small>권한 기준 단위</small></td>
+            <td class="c-en">Mobility Service</td>
+            <td class="c-code"><span class="cp gray">mobility_service_id</span><br><span class="cp gray">mobilityService</span></td>
+            <td class="c-desc">승객이 실제로 배차받는 서비스 단위. OPERATION 권한 부여의 기준. operationTypes 복수 포함 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">MobilityServiceGroup</td>
+            <td class="c-en">Mobility Service Group</td>
+            <td class="c-code"><span class="cp gray">mobility_service_group_id</span></td>
+            <td class="c-desc">인사이트·주요지표 조회 단위. 여러 mobilityService를 묶어 지표를 통합 조회하는 그룹</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">📐 지도 데이터 개념</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">Zone<small>서비스 권역</small></td>
+            <td class="c-en">Zone</td>
+            <td class="c-code"><span class="cp gray">zone_id</span><br><span class="cp purple">shucle-zone</span></td>
+            <td class="c-desc">지리적 서비스 권역 단위. DRT는 operationType 내 zone으로 범위 결정. v4.10~은 operation_type_id로 전환</td>
+          </tr>
+          <tr>
+            <td class="c-term">zone relation</td>
+            <td class="c-en">Zone Relation</td>
+            <td class="c-code"><span class="cp gray">zone_relation</span><br><span class="cp gray">service_zone_stop_points</span></td>
+            <td class="c-desc">stoppoint(정류장)와 zone 간 귀속 관계. 노선형 서비스에서 경유 zone 편집 권한 결정에 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term">stoppoint<small>정류장</small></td>
+            <td class="c-en">Stop Point</td>
+            <td class="c-code"><span class="cp gray">stop_point_id</span><br><span class="cp gray">stoppoints[]</span></td>
+            <td class="c-desc">정류장 단위 지도 요소. 위경도 + zone relation 보유. 맵툴에서 생성·편집·삭제</td>
+          </tr>
+          <tr>
+            <td class="c-term">광역 정류장</td>
+            <td class="c-en">Metropolitan Stop Point</td>
+            <td class="c-code"><span class="cp gray">zone: null</span><br><span class="cp gray">zone_relation: none</span></td>
+            <td class="c-desc">zone 및 zone relation 없이 위경도만 보유한 정류장. 경기교통공사(GT) 전용 행정구역 기반 권한 체계 적용</td>
+          </tr>
+          <tr>
+            <td class="c-term">reverse geocoding</td>
+            <td class="c-en">Reverse Geocoding</td>
+            <td class="c-code"><span class="cp gray">reverse_geocoding</span><br><span class="cp gray">시군구</span></td>
+            <td class="c-desc">위경도 좌표를 행정구역(시군구) 값으로 변환하는 처리. 광역 정류장 편집 권한 판단에 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term">intra</td>
+            <td class="c-en">Intra-zone</td>
+            <td class="c-code"><span class="cp yellow">intra</span></td>
+            <td class="c-desc">DRT 운행방식 중 단일 zone 내 운행. 해당 zone 편집 권한 부여</td>
+          </tr>
+          <tr>
+            <td class="c-term">inter</td>
+            <td class="c-en">Inter-zone</td>
+            <td class="c-code"><span class="cp yellow">inter</span></td>
+            <td class="c-desc">DRT 운행방식 중 복수 zone 간 운행. 관련 복수 zone 편집 권한 부여</td>
+          </tr>
+          <tr>
+            <td class="c-term">GT<small>경기교통공사</small></td>
+            <td class="c-en">Gyeonggi Transport Corp.</td>
+            <td class="c-code"><span class="cp gray">GT</span><br><span class="cp gray">행정구역(시군구)</span></td>
+            <td class="c-desc">광역 정류장 행정구역 권한 보유 주체. 경기도 내 광역 정류장 편집 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">operationTypes</td>
+            <td class="c-en">Operation Types</td>
+            <td class="c-code"><span class="cp gray">operationTypes[]</span><br><span class="cp gray">operation_type_id</span></td>
+            <td class="c-desc">mobilityService 내 복수의 운행 방식 정의 항목. DRT / Line 두 유형으로 분기. 권한 도달 범위 결정</td>
+          </tr>
+          <tr>
+            <td class="c-term">VIN<small>차량 식별번호</small></td>
+            <td class="c-en">Vehicle Identification Number</td>
+            <td class="c-code"><span class="cp gray">VIN</span> <span class="cp gray">17자리 영숫자</span></td>
+            <td class="c-desc">차량을 고유하게 식별하는 17자리 코드. 운영툴 차량 검색 시 완전 일치 검색 지원</td>
+          </tr>
+          <tr>
+            <td class="c-term">호차 (Car No)</td>
+            <td class="c-en">Car No</td>
+            <td class="c-code"><span class="cp gray">car_no</span></td>
+            <td class="c-desc">차량에 붙여진 호차 번호 (예: 1호차, A201). 부분 일치 검색 지원. 번호판보다 우선 표기</td>
+          </tr>
+          <tr>
+            <td class="c-term">번호판</td>
+            <td class="c-en">Plate Number</td>
+            <td class="c-code"><span class="cp gray">plate_number</span><br><span class="cp gray">plateNumber</span></td>
+            <td class="c-desc">차량 번호판. 호차가 없는 경우(택시 등) 대체 표기. 부분 일치 검색 지원</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S11: 관제 시스템 전용 용어 ════ -->
+  <section class="section" id="s11">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#FFE4E1">🖥</div>
+      <div><h2>11. 관제 시스템 (운영툴) 전용 용어</h2><span class="sub">operation.shucle.com — 실시간 차량·호출 모니터링 화면 전용 개념</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">🗺 실시간 DRT 화면</div>
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">실시간DRT 화면</td>
+            <td class="c-en">Real-time DRT Monitor</td>
+            <td class="c-code"><span class="cp gray">/realtime-drt</span></td>
+            <td class="c-desc">DRT 차량의 실시간 위치·배차·탑승 현황을 지도 기반으로 모니터링하는 메인 화면 (v4.13~)</td>
+          </tr>
+          <tr>
+            <td class="c-term">서비스 존 (displayName)</td>
+            <td class="c-en">Service Zone</td>
+            <td class="c-code"><span class="cp gray">zone_display_name</span><br><span class="cp gray">displayname</span></td>
+            <td class="c-desc">운영툴·라이더앱에 표시되는 지역 이름. 행정구역(1차/2차) + 서비스 존으로 2단계 분류. 예: 경기도 > 고양시 > 향동</td>
+          </tr>
+          <tr>
+            <td class="c-term">대기시간 품질 범례</td>
+            <td class="c-en">Wait Time Quality Level</td>
+            <td class="c-code">
+              <span class="cp green">1단계</span> &lt;10분<br>
+              <span class="cp yellow">2단계</span> 10~20분<br>
+              <span class="cp yellow">3단계</span> 20~30분<br>
+              <span class="cp red">4단계</span> &gt;30분
+            </td>
+            <td class="c-desc">현재 진행 중 호출건의 예상·실제 대기시간 차이를 4단계로 시각화. 로컬 바에 평균 범례 표시</td>
+          </tr>
+          <tr>
+            <td class="c-term">차량 상태값</td>
+            <td class="c-en">Vehicle State</td>
+            <td class="c-code">
+              <span class="cp green">승객 탑승중</span><br>
+              <span class="cp yellow">배차 이루어짐</span><br>
+              <span class="cp gray">배차 안됨</span><br>
+              <span class="cp gray">휴식중(운행남음)</span><br>
+              <span class="cp red">운행안함</span>
+            </td>
+            <td class="c-desc">차량 카드에 표시되는 5가지 상태. 지도 위 아이콘 색상도 상태별로 구분됨</td>
+          </tr>
+          <tr>
+            <td class="c-term">운행 상태값</td>
+            <td class="c-en">Operation Status</td>
+            <td class="c-code">
+              <span class="cp green">운행중</span> <span class="cp gray">휴식중</span><br>
+              <span class="cp yellow">종료예정</span> <span class="cp red">운행종료</span><br>
+              <span class="cp gray">주유예정</span> <span class="cp gray">주유중</span><br>
+              <span class="cp red">운행정지</span> <span class="cp yellow">일시정차</span>
+            </td>
+            <td class="c-desc">차량 카드 펼침 상태에서 보이는 세부 운행 상태. 8가지 값으로 구분</td>
+          </tr>
+          <tr>
+            <td class="c-term">탑승 상태</td>
+            <td class="c-en">Boarding Status</td>
+            <td class="c-code"><span class="cp gray">탑승중 n명</span><br><span class="cp gray">탑승예정 n건/n명</span></td>
+            <td class="c-desc">차량 카드 기본/펼침 상태 모두에 상시 표시되는 현재 탑승 현황</td>
+          </tr>
+          <tr>
+            <td class="c-term">온라인 상태 (텔레메트리)</td>
+            <td class="c-en">Telemetry Online Status</td>
+            <td class="c-code"><span class="cp green">online</span> <span class="cp yellow">asleep</span> <span class="cp red">offline</span></td>
+            <td class="c-desc">자율주행(AV) 차량 전용 통신 상태. 일반 차량은 미표시. hover 시 마지막 통신 시각 표시</td>
+          </tr>
+          <tr>
+            <td class="c-term">자율주행 모드</td>
+            <td class="c-en">AV Drive Mode</td>
+            <td class="c-code"><span class="cp yellow">자율주행</span> <span class="cp gray">수동</span><br><span class="cp purple">Remote</span> <span class="cp gray">Manual</span></td>
+            <td class="c-desc">AV 차량의 현재 주행 모드. 자율주행 / 수동 / Remote / Manual로 구분해 차량 카드에 표기</td>
+          </tr>
+          <tr>
+            <td class="c-term">운수사 필터</td>
+            <td class="c-en">Operator Filter</td>
+            <td class="c-code"><span class="cp gray">operator_filter</span></td>
+            <td class="c-desc">차량 탭에서 행정구역 내 운수사별로 차량 목록 필터링. 지역 변경 시 초기화</td>
+          </tr>
+          <tr>
+            <td class="c-term">알림 뱃지</td>
+            <td class="c-en">Alert Badge</td>
+            <td class="c-code"><span class="cp gray">unread_count</span><br><span class="cp gray">최대 99</span></td>
+            <td class="c-desc">미확인 알림 수 표시. 최대 99개 (초과 시 99로 고정). 1분 주기 + 세션 업데이트 시 갱신</td>
+          </tr>
+          <tr>
+            <td class="c-term">모빌리티 서비스 필터</td>
+            <td class="c-en">Mobility Service Filter</td>
+            <td class="c-code"><span class="cp gray">mobility_service_filter</span><br><span class="cp gray">operation_type_filter</span></td>
+            <td class="c-desc">운영툴 우측 패널에서 모빌리티서비스 / 운행유형 2단계 필터로 차량 목록 좁히기</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🚗 차량 카드 상세 (AV 전용)</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">배터리 잔량</td>
+            <td class="c-en">Battery Level</td>
+            <td class="c-code"><span class="cp gray">battery_level</span> (%)</td>
+            <td class="c-desc">AV 차량 전용 표시 항목. 차량 카드 펼침 상태에서 확인</td>
+          </tr>
+          <tr>
+            <td class="c-term">주행 속도</td>
+            <td class="c-en">Speed</td>
+            <td class="c-code"><span class="cp gray">speed</span> (km/h)</td>
+            <td class="c-desc">AV 차량 현재 주행 속도. 실시간 갱신</td>
+          </tr>
+          <tr>
+            <td class="c-term">YawRate</td>
+            <td class="c-en">Yaw Rate</td>
+            <td class="c-code"><span class="cp gray">yaw_rate</span></td>
+            <td class="c-desc">차량 회전 각속도. AV 차량 상태 카드에서 확인 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">스티어링 (조향각)</td>
+            <td class="c-en">Steering Angle</td>
+            <td class="c-code"><span class="cp gray">steering_angle</span></td>
+            <td class="c-desc">AV 차량 현재 핸들 조향 각도</td>
+          </tr>
+          <tr>
+            <td class="c-term">도어 상태</td>
+            <td class="c-en">Door Status</td>
+            <td class="c-code"><span class="cp green">CLOSED</span> <span class="cp red">OPEN</span></td>
+            <td class="c-desc">AV 차량 도어 개폐 상태. 주행 중 도어 오픈 등 에러 케이스는 별도 아이콘 표시</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">📋 공통 관제 화면 메뉴</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">알림센터</td>
+            <td class="c-en">Alert Center</td>
+            <td class="c-code"><span class="cp gray">/monitor</span><br><span class="cp purple">shucle-monitor</span></td>
+            <td class="c-desc">모든 알림을 통합 관리하는 화면. Kafka 7종 토픽 구독. 장애/품질/차량운행/관리 카테고리 분류</td>
+          </tr>
+          <tr>
+            <td class="c-term">호출 상세</td>
+            <td class="c-en">Demand Detail</td>
+            <td class="c-code"><span class="cp gray">/demand/:id</span></td>
+            <td class="c-desc">개별 호출의 전체 라이프사이클(생성→배차→탑승→완료)을 확인하는 상세 화면. 알림에서 링크로 진입</td>
+          </tr>
+          <tr>
+            <td class="c-term">운행 상세</td>
+            <td class="c-en">Supply Session Detail</td>
+            <td class="c-code"><span class="cp gray">/supply/:id</span></td>
+            <td class="c-desc">차량의 운행 세션 전체 이력을 확인하는 상세 화면</td>
+          </tr>
+          <tr>
+            <td class="c-term">근무 시간표</td>
+            <td class="c-en">Work Schedule</td>
+            <td class="c-code"><span class="cp gray">operation_schedule</span><br><span class="cp gray">operation_infos</span></td>
+            <td class="c-desc">익일 차량·드라이버 운행 스케줄 등록 화면. 당일 21시에 미등록 시 관리자 알림(4-A) 발생</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ════ S12: 인사이트툴 전용 용어 ════ -->
+  <section class="section" id="s12">
+    <div class="section-header">
+      <div class="sec-icon" style="background:#E0F2FE">📊</div>
+      <div><h2>12. 인사이트툴 (Insight Tool) 전용 용어</h2><span class="sub">insight.shucle.com — 서비스 지표·데이터 분석 대시보드 전용 개념</span></div>
+    </div>
+    <div class="table-wrap">
+      <div class="sub-title">👥 활성 회원 지표</div>
+      <table>
+        <thead><tr><th>용어</th><th>영문 / 별칭</th><th>개발 코드 / 변수명</th><th>설명 및 산출 기준</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term">WAU<small>주간 활성 회원</small></td>
+            <td class="c-en">Weekly Active Users</td>
+            <td class="c-code"><span class="cp yellow">WAU</span></td>
+            <td class="c-desc">주 단위 최소 1회 이상 <strong>가호출</strong>을 진행한 활성 회원 수(명). 가호출 기준임에 유의</td>
+          </tr>
+          <tr>
+            <td class="c-term">MAU<small>월간 활성 회원</small></td>
+            <td class="c-en">Monthly Active Users</td>
+            <td class="c-code"><span class="cp yellow">MAU</span></td>
+            <td class="c-desc">월 단위 최소 1회 이상 <strong>가호출</strong>을 진행한 활성 회원 수(명)</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">📞 호출·탑승 지표</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">실시간 호출 수</td>
+            <td class="c-en">Real-time Demand Count</td>
+            <td class="c-code"><span class="cp gray">realtime_demand_count</span></td>
+            <td class="c-desc"><strong>실호출</strong> 수 기준. 가호출에서 배차가 확정된 건만 카운트</td>
+          </tr>
+          <tr>
+            <td class="c-term">이동완료</td>
+            <td class="c-en">Trip Completed</td>
+            <td class="c-code"><span class="cp green">DROPPED</span><br><span class="cp gray">dropped_count</span></td>
+            <td class="c-desc">dropped(하차) 상태까지 완료한 호출건수. 실질적으로 서비스가 제공된 수치</td>
+          </tr>
+          <tr>
+            <td class="c-term">누적 탑승객 수</td>
+            <td class="c-en">Total Passengers</td>
+            <td class="c-code"><span class="cp gray">total_passenger_count</span></td>
+            <td class="c-desc">이동완료된 demand의 탑승객 총원(명). 합승 시 1건에 여러 명 포함 가능</td>
+          </tr>
+          <tr>
+            <td class="c-term">미탑승</td>
+            <td class="c-en">No-show / Non-boarding</td>
+            <td class="c-code"><span class="cp red">NO_SHOW</span><br><span class="cp gray">non_boarding_count</span></td>
+            <td class="c-desc">배차는 됐으나 실제로 탑승하지 못한 건수. 품질 지표로 추적</td>
+          </tr>
+          <tr>
+            <td class="c-term">가호출 배차실패</td>
+            <td class="c-en">FakeDemand Match Failure</td>
+            <td class="c-code"><span class="cp red">MATCH_FAILED</span></td>
+            <td class="c-desc">가호출에서 배차가 실패한 건수. 실호출로 전환되지 못한 케이스</td>
+          </tr>
+          <tr>
+            <td class="c-term">예약 수요</td>
+            <td class="c-en">Advance Booking Demand</td>
+            <td class="c-code"><span class="cp gray">booking_demand_count</span></td>
+            <td class="c-desc">예약 호출로 발생한 수요. 실시간 호출과 분리해서 지표 추적</td>
+          </tr>
+          <tr>
+            <td class="c-term">전화 호출</td>
+            <td class="c-en">Phone Call Demand</td>
+            <td class="c-code"><span class="cp gray">phone_call_demand</span><br><span class="cp purple">shucle-callagent</span></td>
+            <td class="c-desc">콜에이전트를 통해 전화로 접수된 호출. 인사이트에서 별도 탭으로 집계</td>
+          </tr>
+          <tr>
+            <td class="c-term">키오스크 호출</td>
+            <td class="c-en">Kiosk Demand</td>
+            <td class="c-code"><span class="cp gray">kiosk_demand</span><br><span class="cp purple">kioskgw</span></td>
+            <td class="c-desc">정류장 키오스크를 통해 접수된 호출. 전화 호출과 함께 별도 탭으로 집계</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">🚌 운행·품질 지표</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">평균 대기시간</td>
+            <td class="c-en">Average Wait Time</td>
+            <td class="c-code"><span class="cp gray">avg_wait_time</span> (분)</td>
+            <td class="c-desc">호출 생성~실제 승차까지 평균 소요 시간. 주차별 추이로 모니터링</td>
+          </tr>
+          <tr>
+            <td class="c-term">상위 10% 대기시간</td>
+            <td class="c-en">Top 10% Wait Time</td>
+            <td class="c-code"><span class="cp yellow">p90_wait_time</span></td>
+            <td class="c-desc">주차별 상위 10% 지역 평균 대기시간. 최악 케이스 모니터링용 지표</td>
+          </tr>
+          <tr>
+            <td class="c-term">운행 유형별 지표</td>
+            <td class="c-en">By Operation Type Metrics</td>
+            <td class="c-code"><span class="cp gray">operation_type_metric</span></td>
+            <td class="c-desc">운행 유형(OperationType) 단위로 가호출/실호출/이동완료/탑승객을 분리해 집계</td>
+          </tr>
+          <tr>
+            <td class="c-term">정류장 이용 지표</td>
+            <td class="c-en">Stop Point Usage</td>
+            <td class="c-code"><span class="cp gray">stop_point_usage</span></td>
+            <td class="c-desc">정류장별 승하차 빈도. 인기 정류장·미이용 정류장 파악에 활용</td>
+          </tr>
+          <tr>
+            <td class="c-term">지역 회원 지표</td>
+            <td class="c-en">Local Member Metrics</td>
+            <td class="c-code"><span class="cp gray">local_member_metric</span></td>
+            <td class="c-desc">특정 서비스 지역의 가입·활성·이탈 회원 수 추적. mobilityService 권한 기준으로 조회</td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="sub-title">📈 인사이트 화면 구성</div>
+      <table>
+        <tbody>
+          <tr>
+            <td class="c-term">LNB</td>
+            <td class="c-en">Left Navigation Bar</td>
+            <td class="c-code"><span class="cp gray">LNB</span></td>
+            <td class="c-desc">인사이트툴 좌측 내비게이션 바. 서비스지표/호출지표/운행지표/매출지표/통계지표/지역지표/플랫폼지표/품질지표/시뮬지표 등 메뉴 제공</td>
+          </tr>
+          <tr>
+            <td class="c-term">Superset 임베드</td>
+            <td class="c-en">Apache Superset Embed</td>
+            <td class="c-code"><span class="cp gray">iframe</span><br><span class="cp purple">superset4.shucle.com</span></td>
+            <td class="c-desc">데이터 시각화 도구(Superset) 대시보드를 iframe으로 임베드해 인사이트툴 내에 표시</td>
+          </tr>
+          <tr>
+            <td class="c-term">DateRangePicker</td>
+            <td class="c-en">Date Range Picker</td>
+            <td class="c-code"><span class="cp gray">date_range_picker</span><br><span class="cp gray">start_date</span> <span class="cp gray">end_date</span></td>
+            <td class="c-desc">인사이트 지표 조회 기간을 선택하는 UI 컴포넌트. 차트 데이터 범위 결정</td>
+          </tr>
+          <tr>
+            <td class="c-term">시뮬 지표</td>
+            <td class="c-en">Simulation Metrics</td>
+            <td class="c-code"><span class="cp purple">shucle-simul</span><br><span class="cp purple">shucle-smatch</span></td>
+            <td class="c-desc">시뮬레이터 실행 결과를 시각화하는 지표. 사업지 도입 예측 데이터 확인에 활용</td>
+          </tr>
+          <tr>
+            <td class="c-term">매출 지표</td>
+            <td class="c-en">Revenue Metrics</td>
+            <td class="c-code"><span class="cp gray">revenue_metric</span><br><span class="cp gray">billing_amount</span></td>
+            <td class="c-desc">패스·바우처·단건 결제 등 수단별 매출 집계. 지역·운행유형별 매출 분석</td>
+          </tr>
+          <tr>
+            <td class="c-term">품질 지표</td>
+            <td class="c-en">Quality Metrics</td>
+            <td class="c-code"><span class="cp gray">quality_metric</span><br><span class="cp gray">detour_ratio</span></td>
+            <td class="c-desc">대기시간·우회비율·미탑승률 등 서비스 품질 관련 지표를 종합 추적하는 메뉴</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+<script>
+(function () {
+  /* ── 기준 요소 ── */
+  const secs   = Array.from(document.querySelectorAll('.section'));
+  const tabs   = Array.from(document.querySelectorAll('.nav-tab[data-section]'));
+  const searchEl = document.getElementById('search');
+  const sc     = document.getElementById('search-count');
+  const nr     = document.getElementById('no-results');
+
+  /* ── 용어 수 집계 (s0 홈 제외) ── */
+  const termRows = Array.from(document.querySelectorAll('.section:not(#s0) tbody tr'));
+  document.getElementById('total-terms').textContent = termRows.length;
+  const subEl = document.getElementById('sidebar-count');
+  if (subEl) subEl.textContent = '전체 ' + termRows.length + '개 용어';
+
+  /* ── 섹션별 카운트 배지 ── */
+  secs.forEach(sec => {
+    if (sec.id === 's0') return;
+    const cnt = sec.querySelectorAll('tbody tr').length;
+    const tab = document.querySelector('.nav-tab[data-section="' + sec.id + '"]');
+    if (tab && cnt) {
+      const b = document.createElement('span');
+      b.className = 'cnt';
+      b.textContent = cnt;
+      tab.appendChild(b);
+    }
+  });
+
+  /* ── 페이지 전환 (섹션 하나만 표시) ── */
+  function goTo(target) {
+    /* 탭 active */
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.section === target));
+
+    /* 섹션 표시/숨김 */
+    if (target === 'all') {
+      secs.forEach(s => { s.style.display = ''; });
+    } else {
+      secs.forEach(s => { s.style.display = (s.id === target) ? '' : 'none'; });
+    }
+
+    /* 스크롤 최상단으로 */
+    window.scrollTo(0, 0);
+  }
+
+  /* ── 탭 클릭 ── */
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      searchEl.value = '';
+      resetSearch();
+      goTo(tab.dataset.section);
+    });
+  });
+
+  /* ── 검색 ── */
+  function clearHL() {
+    document.querySelectorAll('mark').forEach(m => {
+      const txt = document.createTextNode(m.textContent);
+      m.parentNode.replaceChild(txt, m);
+      txt.parentNode && txt.parentNode.normalize();
+    });
+  }
+
+  function hlNode(node, q) {
+    if (node.nodeType === 3) {
+      const idx = node.textContent.toLowerCase().indexOf(q);
+      if (idx < 0) return;
+      const before = document.createTextNode(node.textContent.slice(0, idx));
+      const mark   = document.createElement('mark');
+      mark.textContent = node.textContent.slice(idx, idx + q.length);
+      const after  = document.createTextNode(node.textContent.slice(idx + q.length));
+      const frag   = document.createDocumentFragment();
+      frag.appendChild(before); frag.appendChild(mark); frag.appendChild(after);
+      node.parentNode.replaceChild(frag, node);
+    } else if (node.nodeType === 1 && !/^(MARK|SCRIPT|STYLE)$/.test(node.nodeName)) {
+      Array.from(node.childNodes).forEach(c => hlNode(c, q));
+    }
+  }
+
+  function resetSearch() {
+    clearHL();
+    sc.textContent = ''; sc.classList.remove('show');
+    nr.style.display = 'none';
+    /* 모든 행 다시 보이게 */
+    document.querySelectorAll('tbody tr').forEach(r => r.style.display = '');
+  }
+
+  searchEl.addEventListener('input', () => {
+    const q = searchEl.value.trim().toLowerCase();
+    resetSearch();
+
+    if (!q) {
+      goTo('s0');
+      return;
+    }
+
+    /* 검색 중에는 전체 섹션 표시 */
+    tabs.forEach(t => t.classList.toggle('active', t.dataset.section === 'all'));
+    secs.forEach(s => s.style.display = '');
+
+    /* 행 필터링 + 하이라이트 */
+    const allRows = Array.from(document.querySelectorAll('tbody tr'));
+    let hit = 0;
+    allRows.forEach(row => {
+      if (row.textContent.toLowerCase().includes(q)) {
+        row.style.display = '';
+        row.querySelectorAll('td').forEach(td => hlNode(td, q));
+        hit++;
+      } else {
+        row.style.display = 'none';
+      }
+    });
+
+    /* 빈 섹션 숨기기 */
+    secs.forEach(s => {
+      const visible = s.querySelectorAll('tbody tr:not([style*="display: none"])').length;
+      s.style.display = visible ? '' : 'none';
+    });
+
+    if (hit === 0) {
+      nr.style.display = 'block';
+    } else {
+      nr.style.display = 'none';
+      sc.textContent = '"' + searchEl.value + '" 검색 결과: ' + hit + '개';
+      sc.classList.add('show');
+    }
+  });
+
+  /* ── 초기: 홈(s0) 표시 ── */
+  goTo('s0');
+
+  /* ── 상단 이동 버튼 ── */
+  const topBtn = document.getElementById('back-top');
+  window.addEventListener('scroll', () => topBtn.classList.toggle('show', window.scrollY > 200));
+  topBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+</script>
 </body>
 </html>
