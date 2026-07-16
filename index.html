@@ -1331,15 +1331,17 @@
   <section class="section" id="s9">
     <div class="section-header">
       <div class="sec-icon" style="background:#F1F5F9">📌</div>
-      <div><h2>9. 약어 모음</h2><span class="sub">자주 등장하는 약어 한눈에 정리</span></div>
+      <div><h2>9. 약어 모음</h2><span class="sub">공식 약어 + 내부 구어체 약어 한눈에 정리</span></div>
     </div>
     <div class="table-wrap">
+      <div class="sub-title">📋 공식 약어</div>
       <table>
-        <thead><tr><th style="width:90px">약어</th><th style="width:280px">풀이 (영문)</th><th>개발 코드</th><th>한국어 설명</th></tr></thead>
+        <thead><tr><th style="width:90px">약어</th><th style="width:260px">풀이 (영문)</th><th>개발 코드</th><th>한국어 설명</th></tr></thead>
         <tbody>
           <tr><td class="c-term">DRT</td><td class="c-en">Demand Responsive Transit</td><td class="c-code"><span class="cp">DRT</span> <span class="cp yellow">DRTAttribute</span></td><td class="c-desc">수요응답교통. 셔클 핵심 서비스 유형</td></tr>
           <tr><td class="c-term">PM</td><td class="c-en">Personal Mobility</td><td class="c-code"><span class="cp">PM</span></td><td class="c-desc">개인형 이동수단 (킥보드·자전거). <em>Product Manager의 PM과 혼동 주의</em></td></tr>
           <tr><td class="c-term">AV</td><td class="c-en">Autonomous Vehicle</td><td class="c-code"><span class="cp purple">avgw</span></td><td class="c-desc">자율주행차. 전용 게이트웨이(avgw) 사용</td></tr>
+          <tr><td class="c-term">MoD</td><td class="c-en">Mobility on Demand</td><td class="c-code">—</td><td class="c-desc">수요응답형 이동 서비스의 국제 통용 표현. DRT와 같은 개념</td></tr>
           <tr><td class="c-term">PG</td><td class="c-en">Payment Gateway</td><td class="c-code"><span class="cp purple">shucle-paypg</span></td><td class="c-desc">결제대행사 (블루월넛). Java 어댑터로 연동</td></tr>
           <tr><td class="c-term">MID</td><td class="c-en">Merchant ID</td><td class="c-code"><span class="cp gray">bill_mid</span> <span class="cp gray">pay_mid</span></td><td class="c-desc">PG 가맹점 ID. 빌키/결제 MID 분리 운영</td></tr>
           <tr><td class="c-term">PO</td><td class="c-en">Product Owner</td><td class="c-code">—</td><td class="c-desc">제품 책임자</td></tr>
@@ -1361,6 +1363,116 @@
           <tr><td class="c-term">TBL</td><td class="c-en">Troubleshooting Log</td><td class="c-code"><span class="cp gray">TBL-001~020</span></td><td class="c-desc">장애·이슈 추적 문서. 020개 기록</td></tr>
           <tr><td class="c-term">CS</td><td class="c-en">Customer Service</td><td class="c-code"><span class="cp">shucle-cs-issue-*</span></td><td class="c-desc">고객 서비스. 지역별 레포로 MCS·고객센터·운수사 소통</td></tr>
           <tr><td class="c-term">NFC</td><td class="c-en">Near Field Communication</td><td class="c-code"><span class="cp purple">shucle-tpay</span></td><td class="c-desc">근거리 무선통신. 교통카드 결제(T-pay)에 사용</td></tr>
+          <tr><td class="c-term">VIN</td><td class="c-en">Vehicle Identification Number</td><td class="c-code"><span class="cp gray">VIN</span></td><td class="c-desc">차량 고유 식별번호 17자리. 운영툴 차량 검색 지원</td></tr>
+          <tr><td class="c-term">TCK</td><td class="c-en">Technology Center Korea</td><td class="c-code"><span class="cp">pangyo-av-operation</span></td><td class="c-desc">현대차 판교 기술연구소 현장. 자율주행 실증 거점</td></tr>
+          <tr><td class="c-term">GT</td><td class="c-en">Gyeonggi Transport</td><td class="c-code"><span class="cp gray">GT</span></td><td class="c-desc">경기교통공사. 광역 노선 운수사. 맵툴 광역 정류장 편집 주체</td></tr>
+        </tbody>
+      </table>
+
+      <div class="sub-title">💬 내부 구어체 약어 <span style="font-weight:400;font-size:11px;color:#94A3B8;text-transform:none;letter-spacing:0">— 문서에는 쓰지 않고 구두·메신저에서 통용되는 표현</span></div>
+      <table>
+        <thead><tr><th style="width:110px">약어·줄임말</th><th style="width:200px">원래 표현</th><th>사용 맥락 및 설명</th></tr></thead>
+        <tbody>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">운스케</td>
+            <td class="c-en">운행 스케줄 / 근무 시간표</td>
+            <td class="c-desc">다음날 차량·드라이버 운행 일정. 당일 21시까지 미등록 시 관제 알림 발생. <span class="tag gray">관련: operation_schedule</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">가호</td>
+            <td class="c-en">가호출 (FakeDemand)</td>
+            <td class="c-desc">배차 시도 전 사전 호출. "가호 배실났어요" 처럼 사용. <span class="tag gray">관련: fake_demand_id</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">실호</td>
+            <td class="c-en">실호출 (RealDemand)</td>
+            <td class="c-desc">배차 확정 후 생성된 호출. "실호 몇 건이에요?" 처럼 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">배실</td>
+            <td class="c-en">배차 실패</td>
+            <td class="c-desc">가호출·실호출의 배차가 이루어지지 않은 상태. "배실률이 높아요" 처럼 사용. MATCH_* 에러 코드로 분류</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">배정책</td>
+            <td class="c-en">배차 정책</td>
+            <td class="c-desc">운행유형별 매칭 조건(최대 대기시간, 우회비율 등) 설정값. "배정책 확인해줘" 처럼 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">배엔</td>
+            <td class="c-en">배차 엔진 (shucle-engine)</td>
+            <td class="c-desc">매칭 알고리즘 실행 엔진. 개발팀에서 "배엔 이슈야" 처럼 사용</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">운툴</td>
+            <td class="c-en">운영툴 (관제 시스템)</td>
+            <td class="c-desc">operation.shucle.com의 내부 약칭. "운툴에서 확인해봐요"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">라앱</td>
+            <td class="c-en">라이더앱</td>
+            <td class="c-desc">승객용 셔클 앱의 구어체 약칭. "라앱 버전 확인해줘"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">드앱</td>
+            <td class="c-en">드라이버앱</td>
+            <td class="c-desc">DRT 기사용 앱의 구어체 약칭. "드앱 재시작 해달라고 하세요"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">비앱</td>
+            <td class="c-en">비히클앱 (Vehicle App)</td>
+            <td class="c-desc">차량 단말 앱의 구어체 약칭</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">빌키</td>
+            <td class="c-en">Bill Key</td>
+            <td class="c-desc">PG에서 카드 등록 시 발급하는 빌링용 키. <span class="tag gray">관련: bill_key, bill_mid</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">OB</td>
+            <td class="c-en">Operations Billing</td>
+            <td class="c-desc">운행 요금 미정산 처리 완료. CS 대응 메모에서 "OB완료" 형태로 사용. <em>예: "운행요금 미정산 과금 OB완료"</em></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">시뮬</td>
+            <td class="c-en">시뮬레이터 (shucle-simul)</td>
+            <td class="c-desc">사업지 도입 효과 사전 예측 도구. "시뮬 돌려봤어요?"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">세도교 / 도교공</td>
+            <td class="c-en">세종도시교통공사 (KCTC)</td>
+            <td class="c-desc">세종 DRT 운수사의 구어체 약칭. 공식 약어는 KCTC</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">대기오차</td>
+            <td class="c-en">대기시간 오차</td>
+            <td class="c-desc">예상 대기시간과 실제 탑승 대기시간의 차이. 배차 정책(additional_waiting_duration) 초과 시 품질 알림 발생</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">우회비</td>
+            <td class="c-en">우회비율 (Detour Ratio)</td>
+            <td class="c-desc">직통 경로 대비 실제 이동시간 비율. "우회비 너무 높아요" 처럼 사용. <span class="tag gray">관련: max_detour</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">호출상세</td>
+            <td class="c-en">호출 상세 화면 (/demand/:id)</td>
+            <td class="c-desc">운영툴 내 개별 호출 라이프사이클 확인 화면. 슬랙 알림에 링크로 첨부됨. "호출상세 링크 보내줘"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">운행상세</td>
+            <td class="c-en">운행 상세 화면 (/supply/:id)</td>
+            <td class="c-desc">운영툴 내 차량 세션 전체 이력 화면. "운행상세 확인해봐요"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">긴급알림</td>
+            <td class="c-en">#shucle-emergency-alerts</td>
+            <td class="c-desc">배차 실패·서버 오류 등 1급 알림이 오는 슬랙 채널. "긴급알림 채널 봤어요?"</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">운행알림</td>
+            <td class="c-en">#shucle-operation-alerts</td>
+            <td class="c-desc">차량 일시정차·네트워크 오류 등 현장 운행 관련 알림 채널</td>
+          </tr>
         </tbody>
       </table>
     </div>
