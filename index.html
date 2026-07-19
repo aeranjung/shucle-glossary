@@ -601,6 +601,24 @@
               <td><span class="tag orange">운영툴·구두</span></td>
               <td class="c-desc">운영툴에서 차량을 식별하는 이름. <code style="font-family:monospace;font-size:12px">car_no</code> 필드. 번호판(plate_number)과 다른 개념</td>
             </tr>
+            <tr>
+              <td style="font-weight:700;color:#166534">
+                <span class="cp green">광역이동</span><br>
+                <span class="cp green" style="margin-top:3px;display:inline-block">광역 노선 DRT</span>
+              </td>
+              <td>
+                <span style="color:#64748B;font-size:12px">같은 서비스, 맥락별 3가지 명칭:</span><br>
+                <span class="cp yellow" style="font-size:11px">Overall / 오버롤</span> (개발팀)<br>
+                <span class="cp blue" style="font-size:11px">라인 (LINE)</span> (라이더앱)
+              </td>
+              <td><span class="tag red">문서·개발·앱</span></td>
+              <td class="c-desc">
+                동일한 서비스를 소통 대상에 따라 다르게 부름. 대외 자료엔 <strong>광역이동 / 광역 노선 DRT</strong>만 사용.
+                <br>· 지자체·세일즈: <strong>광역이동 / 광역 노선 DRT</strong>
+                <br>· 개발·배차엔진: <strong>Overall (오버롤 라우팅)</strong>
+                <br>· 라이더앱 UI: <strong>라인 (LINE)</strong> — "용인~서울 LINE 01"
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
@@ -660,10 +678,50 @@
             <td class="c-desc">자율주행 차량 활용 서비스. 판교·강릉 등 실증 운영. 전용 게이트웨이(avgw) 사용</td>
           </tr>
           <tr>
-            <td class="c-term">광역 노선</td>
-            <td class="c-en">Metropolitan Line</td>
-            <td class="c-code"><span class="cp">METROPOLITAN</span></td>
-            <td class="c-desc">여러 지역에 걸친 노선. Duration 기반 타임테이블 사용 (카카오 API 연계)</td>
+            <td class="c-term">광역이동 / 광역 노선 DRT<small>대외·세일즈 공식 명칭</small></td>
+            <td class="c-en">Metropolitan Line DRT</td>
+            <td class="c-code"><span class="cp">METROPOLITAN</span><br><span class="cp yellow">LineAttribute</span></td>
+            <td class="c-desc">
+              지자체 경계를 넘어 Zone과 Zone을 오가는 장거리 이동 서비스의 <strong>대외·세일즈 공식 명칭</strong>. 지자체 실무자·파트너사에게 가장 직관적으로 통용되는 표준 용어.
+              <br><span class="tag orange">optool-doc #2283</span> <span class="tag gray">서비스정책서/DRT/장거리이동x예약.md</span>
+              <br><br>
+              <strong style="color:#475569;font-size:12px">⚠ 같은 서비스, 소통 대상에 따른 3가지 명칭</strong>
+              <table style="width:100%;border-collapse:collapse;font-size:12px;margin-top:6px">
+                <tr style="background:#F8FAFC">
+                  <th style="padding:5px 10px;text-align:left;color:#64748B;font-weight:700;width:140px">명칭</th>
+                  <th style="padding:5px 10px;text-align:left;color:#64748B;font-weight:700;width:130px">사용 맥락</th>
+                  <th style="padding:5px 10px;text-align:left;color:#64748B;font-weight:700">설명</th>
+                </tr>
+                <tr>
+                  <td style="padding:5px 10px"><span class="cp green">광역이동</span> / <span class="cp green">광역 노선 DRT</span></td>
+                  <td style="padding:5px 10px;color:#374151">대외·세일즈·지자체</td>
+                  <td style="padding:5px 10px;color:#374151">파트너사·지자체가 직관적으로 이해하도록 채택한 공식 명칭. 대외 자료엔 반드시 이 표현 사용</td>
+                </tr>
+                <tr style="background:#FAFBFF">
+                  <td style="padding:5px 10px"><span class="cp yellow">Overall</span> / <span class="cp yellow">오버롤 라우팅</span></td>
+                  <td style="padding:5px 10px;color:#374151">개발·배차엔진·지도</td>
+                  <td style="padding:5px 10px;color:#374151">단일 Zone 내 라우팅과 대비되는 전국 단위 경로 탐색 시스템 명칭. 가상의 글로벌 Zone을 생성해 카카오 API 등으로 경로 연산. 코드상 <code style="font-family:monospace;font-size:11px">IsRoutingAvailable</code></td>
+                </tr>
+                <tr>
+                  <td style="padding:5px 10px"><span class="cp blue">라인 (LINE)</span></td>
+                  <td style="padding:5px 10px;color:#374151">라이더앱·승객 UI</td>
+                  <td style="padding:5px 10px;color:#374151">라이더앱 내 수요응답형 노선을 버스 노선처럼 직관적으로 표현하는 명칭. 예: <em>"용인~서울 LINE 01"</em>, <em>"셔클 라인(Shucle Line)"</em>. 회차·경로를 승객이 인지하도록 지원</td>
+                </tr>
+              </table>
+              <div style="font-size:11px;color:#94A3B8;margin-top:4px">shucle-product #9688 · shucle-rider #888 · optool-doc #1732</div>
+            </td>
+          </tr>
+          <tr>
+            <td class="c-term">Overall / 오버롤<small>개발자 명칭</small></td>
+            <td class="c-en">Overall Routing</td>
+            <td class="c-code"><span class="cp yellow">OVERALL</span><br><span class="cp gray">IsRoutingAvailable</span><br><span class="cp purple">shucle-routing</span></td>
+            <td class="c-desc">백엔드·배차엔진 레벨에서 단일 Zone 라우팅과 대비되는 <strong>전국 단위 광역 경로 탐색</strong> 시스템. 가상의 글로벌 Zone을 생성하여 지자체 경계에 구애받지 않고 카카오 API 등으로 경로를 연산. 대외 명칭은 '광역이동'. <span class="tag gray">product #9688</span> <span class="tag gray">optool-doc #1732</span></td>
+          </tr>
+          <tr>
+            <td class="c-term">라인 (LINE)<small>라이더앱 명칭</small></td>
+            <td class="c-en">Shucle Line</td>
+            <td class="c-code"><span class="cp blue">LINE</span><br><span class="cp yellow">LineAttribute</span><br><span class="cp gray">line_timetable</span></td>
+            <td class="c-desc">라이더앱 UI에서 수요응답형 노선 서비스를 승객에게 직관적으로 전달하기 위한 명칭. <em>"용인~서울 LINE 01"</em>, <em>"셔클 라인"</em> 형태로 노출. 타임테이블·회차를 버스처럼 제공해 예측 가능성 부여. 개발 코드상으로는 <code style="font-family:monospace;font-size:12px">LineAttribute</code> 사용. <span class="tag gray">rider #888</span></td>
           </tr>
         </tbody>
       </table>
