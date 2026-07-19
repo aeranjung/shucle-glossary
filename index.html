@@ -440,7 +440,7 @@
           <span style="font-size:16px">🆕</span>
           <h3 style="font-size:16px;font-weight:800;color:var(--primary)">최근 업데이트</h3>
         </div>
-        <span id="last-updated" style="font-size:12px;color:var(--text-muted)">마지막 업데이트: 2026-07-16 08:00</span>
+        <span id="last-updated" style="font-size:12px;color:var(--text-muted)">마지막 업데이트: 2026-07-20 08:00</span>
       </div>
       <div class="table-wrap" id="updates-table">
         <table>
@@ -469,6 +469,30 @@
               <td><span class="tag red">배차·운행</span></td>
               <td class="c-term">배차 실패 코드<small>MATCH_* 300~347</small></td>
               <td class="c-desc">MATCH_* 에러 코드(300~347) 전체 목록 추가. 운영툴 알림 카테고리(1급/2급)와 매핑</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12.5px;white-space:nowrap">2026-07-20</td>
+              <td><span class="tag blue">인프라·기술</span></td>
+              <td class="c-term">ADR-047<small>UserPlan 한시적 중단</small></td>
+              <td class="c-desc"><strong>바우처 한시적 중단 상태</strong> 신규 개념 도입 (shucle-billing). 기존 무기한 중단(<code style="font-family:monospace;font-size:11px">IsDisable</code>)에 더해 종료일이 있는 한시적 중단(<code style="font-family:monospace;font-size:11px">disable_until</code>) 필드 추가. 동특교 요건. 관련 서비스: billing·apigw·opgw·notification</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12.5px;white-space:nowrap">2026-07-20</td>
+              <td><span class="tag orange">결제·요금</span></td>
+              <td class="c-term">ADR-046<small>혜택 선택 프로세스</small></td>
+              <td class="c-desc"><strong>혜택 선택 프로세스 추가</strong> — 기존 최대 혜택 자동 적용 방식에서 사용자가 호출 시 패스·바우처를 직접 선택하는 방식으로 변경. 바우처 공유(#2410) 도입 후 복수 혜택 보유 시나리오 대응. 관련 서비스: apigw·billing·pass-v2·pay</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12.5px;white-space:nowrap">2026-07-20</td>
+              <td><span class="tag red">배차·운행</span></td>
+              <td class="c-term">ADR-045<small>패널티·수수료 공통화</small></td>
+              <td class="c-desc"><strong>패널티 및 수수료 공통화</strong> — 노선 DRT(LINE)에만 적용되던 패널티 안내를 전 <code style="font-family:monospace;font-size:11px">operation_type</code>으로 확대. 예약형·호출형 분리 웹뷰를 단일 구조로 통합. 관련 서비스: apigw·webgw·policy</td>
+            </tr>
+            <tr>
+              <td style="color:var(--text-muted);font-size:12.5px;white-space:nowrap">2026-07-20</td>
+              <td><span class="tag purple">회원·인증</span></td>
+              <td class="c-term">Operator.Type enum<small>코드값 전체 추가</small></td>
+              <td class="c-desc"><code style="font-family:monospace;font-size:11px">api/operator/v1/operator.proto</code> 기반 기관 유형 코드값 정리. PLATFORM(1)·OP(2)·TRANS(3)·LOCAL_GOVERNMENT(4)·SUPER_TRANS(5) + ConnectedModality·OpUser.Role enum 표 추가</td>
             </tr>
             <tr>
               <td style="color:var(--text-muted);font-size:12.5px;white-space:nowrap">2026-07-16</td>
@@ -982,6 +1006,24 @@
             <td class="c-code"><span class="cp purple">shucle-pay</span><br><span class="cp gray">card_id</span><br><span class="cp gray">payment_id</span></td>
             <td class="c-desc">카드 등록·실결제·취소. 블루월넛 PG + 카드사 연동. shucle-pay 서비스 담당</td>
           </tr>
+          <tr>
+            <td class="c-term">혜택 선택<small>Benefit Selection · ADR-046</small></td>
+            <td class="c-en">Benefit Selection</td>
+            <td class="c-code"><span class="cp purple">shucle-billing</span><br><span class="cp purple">shucle-pass-v2</span><br><span class="cp gray">selected_benefit_id</span></td>
+            <td class="c-desc">호출 과정에서 패스·바우처 중 적용할 혜택을 사용자가 직접 선택하는 프로세스. 기존 최대 혜택 자동 적용에서 전환. 바우처 공유 기능 도입 이후 신규 시나리오 대응 (ADR-046)</td>
+          </tr>
+          <tr>
+            <td class="c-term">한시적 중단<small>Temporary Suspension · ADR-047</small></td>
+            <td class="c-en">Temporary Suspension</td>
+            <td class="c-code"><span class="cp red">disable_until</span><br><span class="cp gray">IsDisable</span> (무기한)<br><span class="cp purple">shucle-billing</span></td>
+            <td class="c-desc">종료일이 있는 바우처 이용 중단 상태. 무기한 중단(<code style="font-family:monospace;font-size:12px">IsDisable=true</code>)과 달리 '내 바우처'에는 계속 노출되며 중단 안내 문구가 표시됨. 동특교 요건으로 v4.12에 추가 (ADR-047)</td>
+          </tr>
+          <tr>
+            <td class="c-term">패널티 공통화<small>Penalty Unification · ADR-045</small></td>
+            <td class="c-en">Penalty Unification</td>
+            <td class="c-code"><span class="cp purple">shucle-policy</span><br><span class="cp gray">operation_type_id</span><br><span class="cp gray">is_booking</span></td>
+            <td class="c-desc">노선 DRT(LINE)에만 적용되던 패널티·수수료 안내를 전 운행유형(operation_type)으로 확대. 예약형·호출형 분리 웹뷰를 단일 구조로 통합 (ADR-045)</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -1010,16 +1052,82 @@
             <td class="c-desc">셔클 플랫폼 등록 차량 운전 기사</td>
           </tr>
           <tr>
-            <td class="c-term">운영사<small>Operator</small></td>
+            <td class="c-term">운영사<small>Operator · OP</small></td>
             <td><span class="tag orange">사업자</span></td>
-            <td class="c-code"><span class="cp purple">shucle-operator</span><br><span class="cp gray">operator_id</span></td>
-            <td class="c-desc">운수사 포함 서비스 운영 사업 주체. Firebase 인증 위임, 권한은 자체 DB. ADR-040, ADR-011</td>
+            <td class="c-code"><span class="cp yellow">OP = 2</span><br><span class="cp purple">shucle-operator</span><br><span class="cp gray">operator_id</span></td>
+            <td class="c-desc">서비스 운영 관리 주체. <code style="font-family:monospace;font-size:12px">Operator.Type = OP (2)</code>. Firebase 인증 위임, 권한은 자체 DB. ADR-040, ADR-011</td>
+          </tr>
+          <tr>
+            <td class="c-term">운수사<small>Trans Operator · TRANS</small></td>
+            <td><span class="tag green">운행 사업자</span></td>
+            <td class="c-code"><span class="cp yellow">TRANS = 3</span><br><span class="cp purple">shucle-operator</span><br><span class="cp gray">operator_id</span></td>
+            <td class="c-desc">실제 차량을 운행하는 사업자. <code style="font-family:monospace;font-size:12px">Operator.Type = TRANS (3)</code>. ConnectedModality로 DRT·PM·TAXI 연결 유형 구분</td>
+          </tr>
+          <tr>
+            <td class="c-term">상위 운수사<small>Super Trans · SUPER_TRANS</small></td>
+            <td><span class="tag purple">통합 관리</span></td>
+            <td class="c-code"><span class="cp yellow">SUPER_TRANS = 5</span><br><span class="cp gray">sub_operator_ids</span></td>
+            <td class="c-desc">복수의 운수사(TRANS)를 통합 관리하는 상위 기관. <code style="font-family:monospace;font-size:12px">Operator.Type = SUPER_TRANS (5)</code>. 동특교 요건으로 v4.12 신규 추가 (server-3874)</td>
+          </tr>
+          <tr>
+            <td class="c-term">지자체<small>Local Government</small></td>
+            <td><span class="tag blue">행정기관</span></td>
+            <td class="c-code"><span class="cp yellow">LOCAL_GOVERNMENT = 4</span></td>
+            <td class="c-desc">행정기관 사업 주체. <code style="font-family:monospace;font-size:12px">Operator.Type = LOCAL_GOVERNMENT (4)</code>. 세종시·경기도 등</td>
+          </tr>
+          <tr>
+            <td class="c-term">플랫폼<small>Platform</small></td>
+            <td><span class="tag red">플랫폼 공급사</span></td>
+            <td class="c-code"><span class="cp yellow">PLATFORM = 1</span></td>
+            <td class="c-desc">셔클 등 플랫폼 공급사 계정. <code style="font-family:monospace;font-size:12px">Operator.Type = PLATFORM (1)</code>. 맵툴 전체 권한 보유</td>
+          </tr>
+          <tr>
+            <td class="c-term" colspan="4" style="background:#F8FAFC;padding:10px 16px">
+              <div style="font-size:11.5px;font-weight:700;color:#64748B;margin-bottom:8px">📋 Operator.Type 전체 enum — <code style="font-family:monospace;font-size:11px">api/operator/v1/operator.proto</code></div>
+              <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+                <tr style="background:#F1F5F9">
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:60px">숫자</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:200px">enum 코드</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">한국어</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">비고</th>
+                </tr>
+                <tr><td style="padding:5px 10px;color:#94A3B8">0</td><td><span class="cp gray">TYPE_UNSPECIFIED</span></td><td style="padding:5px 10px;color:#94A3B8">미지정</td><td style="padding:5px 10px;color:#94A3B8">기본값</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">1</td><td><span class="cp yellow">PLATFORM</span></td><td style="padding:5px 10px;font-weight:600">플랫폼</td><td style="padding:5px 10px;color:#64748B">셔클 등 플랫폼 공급사</td></tr>
+                <tr><td style="padding:5px 10px">2</td><td><span class="cp yellow">OP</span></td><td style="padding:5px 10px;font-weight:600">운영사</td><td style="padding:5px 10px;color:#64748B">서비스 운영 관리 주체</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">3</td><td><span class="cp yellow">TRANS</span></td><td style="padding:5px 10px;font-weight:600">운수사</td><td style="padding:5px 10px;color:#64748B">실제 차량 운행 사업자</td></tr>
+                <tr><td style="padding:5px 10px">4</td><td><span class="cp yellow">LOCAL_GOVERNMENT</span></td><td style="padding:5px 10px;font-weight:600">지자체</td><td style="padding:5px 10px;color:#64748B">세종시·경기도 등 행정기관</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">5</td><td><span class="cp yellow">SUPER_TRANS</span></td><td style="padding:5px 10px;font-weight:600">상위 운수사</td><td style="padding:5px 10px;color:#64748B">v4.12 신규. sub_operator_ids로 하위 운수사 관리</td></tr>
+              </table>
+              <div style="font-size:11.5px;font-weight:700;color:#64748B;margin:10px 0 8px">📋 ConnectedModality enum — 운수사(TRANS) 전용</div>
+              <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+                <tr style="background:#F1F5F9">
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:60px">숫자</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:200px">enum 코드</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">설명</th>
+                </tr>
+                <tr><td style="padding:5px 10px;color:#94A3B8">0</td><td><span class="cp gray">CONNECTED_MODALITY_UNSPECIFIED</span></td><td style="padding:5px 10px;color:#94A3B8">미지정</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">1</td><td><span class="cp green">DRT</span></td><td style="padding:5px 10px;color:#64748B">해당 운수사가 DRT 서비스와 연결됨</td></tr>
+                <tr><td style="padding:5px 10px">2</td><td><span class="cp green">PM</span></td><td style="padding:5px 10px;color:#64748B">해당 운수사가 PM(킥보드·자전거)과 연결됨</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">3</td><td><span class="cp green">TAXI</span></td><td style="padding:5px 10px;color:#64748B">해당 운수사가 택시와 연결됨</td></tr>
+              </table>
+              <div style="font-size:11.5px;font-weight:700;color:#64748B;margin:10px 0 8px">📋 OpUser.Role enum — 운영툴 계정 역할</div>
+              <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+                <tr style="background:#F1F5F9">
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:60px">숫자</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:200px">enum 코드</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">설명</th>
+                </tr>
+                <tr><td style="padding:5px 10px;color:#94A3B8">0</td><td><span class="cp gray">UNSPECIFIED</span></td><td style="padding:5px 10px;color:#94A3B8">미지정</td></tr>
+                <tr style="background:#FFF"><td style="padding:5px 10px">1</td><td><span class="cp yellow">ADMIN</span></td><td style="padding:5px 10px;color:#64748B">메인 관리자 — 계정 편집·결제 보기·DRT 전체 권한</td></tr>
+                <tr><td style="padding:5px 10px">2</td><td><span class="cp yellow">MEMBER</span></td><td style="padding:5px 10px;color:#64748B">일반 관리자 — 계정 보기·결제 보기·DRT 보기/편집</td></tr>
+              </table>
+            </td>
           </tr>
           <tr>
             <td class="c-term">운영자(관리자)<small>OpUser</small></td>
             <td><span class="tag red">관리자</span></td>
-            <td class="c-code"><span class="cp gray">op_user_id</span><br><span class="cp gray">opuser_id</span></td>
-            <td class="c-desc">운영툴 로그인 담당자. 원격 취소·중도 하차·패널티 부과 등 처리 권한</td>
+            <td class="c-code"><span class="cp gray">op_user_id</span><br><span class="cp yellow">ADMIN = 1</span><br><span class="cp yellow">MEMBER = 2</span></td>
+            <td class="c-desc">운영툴 로그인 담당자. 역할은 <code style="font-family:monospace;font-size:12px">OpUser.Role</code>: ADMIN(메인)·MEMBER(일반). 원격 취소·패널티 부과 등 처리 권한</td>
           </tr>
           <tr>
             <td class="c-term">외국인 회원<small>Foreigner</small></td>
@@ -1366,6 +1474,40 @@
           <tr><td class="c-term">VIN</td><td class="c-en">Vehicle Identification Number</td><td class="c-code"><span class="cp gray">VIN</span></td><td class="c-desc">차량 고유 식별번호 17자리. 운영툴 차량 검색 지원</td></tr>
           <tr><td class="c-term">TCK</td><td class="c-en">Technology Center Korea</td><td class="c-code"><span class="cp">pangyo-av-operation</span></td><td class="c-desc">현대차 판교 기술연구소 현장. 자율주행 실증 거점</td></tr>
           <tr><td class="c-term">GT</td><td class="c-en">Gyeonggi Transport</td><td class="c-code"><span class="cp gray">GT</span></td><td class="c-desc">경기교통공사. 광역 노선 운수사. 맵툴 광역 정류장 편집 주체</td></tr>
+          <tr>
+            <td class="c-term" colspan="4" style="background:#F8FAFC;padding:12px 16px">
+              <div style="font-size:11.5px;font-weight:700;color:#64748B;margin-bottom:8px">
+                📋 <code style="font-family:monospace">Operator.Type</code> enum — <code style="font-family:monospace;font-size:11px">api/operator/v1/operator.proto</code>
+              </div>
+              <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+                <tr style="background:#F1F5F9">
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:60px">값</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:220px">코드</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:120px">한국어</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">설명</th>
+                </tr>
+                <tr><td style="padding:5px 10px;color:#94A3B8">0</td><td><span class="cp gray">TYPE_UNSPECIFIED</span></td><td style="padding:5px 10px;color:#94A3B8">미지정</td><td style="padding:5px 10px;color:#94A3B8">기본값</td></tr>
+                <tr style="background:#fff"><td style="padding:5px 10px;font-weight:700">1</td><td><span class="cp yellow">PLATFORM</span></td><td style="padding:5px 10px;font-weight:600">플랫폼</td><td style="padding:5px 10px;color:#374151">셔클 등 플랫폼 공급사. 맵툴 전체 권한 보유</td></tr>
+                <tr><td style="padding:5px 10px;font-weight:700">2</td><td><span class="cp yellow">OP</span></td><td style="padding:5px 10px;font-weight:600">운영사</td><td style="padding:5px 10px;color:#374151">서비스 운영 관리 주체. 플랫폼 계정으로 관리</td></tr>
+                <tr style="background:#fff"><td style="padding:5px 10px;font-weight:700">3</td><td><span class="cp yellow">TRANS</span></td><td style="padding:5px 10px;font-weight:600">운수사</td><td style="padding:5px 10px;color:#374151">실제 차량 운행 사업자. ConnectedModality로 DRT·PM·TAXI 구분</td></tr>
+                <tr><td style="padding:5px 10px;font-weight:700">4</td><td><span class="cp yellow">LOCAL_GOVERNMENT</span></td><td style="padding:5px 10px;font-weight:600">지자체</td><td style="padding:5px 10px;color:#374151">세종시·경기도 등 행정기관</td></tr>
+                <tr style="background:#fff"><td style="padding:5px 10px;font-weight:700">5</td><td><span class="cp yellow">SUPER_TRANS</span></td><td style="padding:5px 10px;font-weight:600">상위 운수사</td><td style="padding:5px 10px;color:#374151">v4.12 신규. 복수 TRANS를 sub_operator_ids로 관리 (server-3874)</td></tr>
+              </table>
+              <div style="font-size:11.5px;font-weight:700;color:#64748B;margin:10px 0 6px">
+                📋 <code style="font-family:monospace">OpUser.Role</code> enum — <code style="font-family:monospace;font-size:11px">api/operator/v1/opuser.proto</code>
+              </div>
+              <table style="width:100%;border-collapse:collapse;font-size:12.5px">
+                <tr style="background:#F1F5F9">
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:60px">값</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569;width:220px">코드</th>
+                  <th style="padding:5px 10px;text-align:left;font-weight:700;color:#475569">설명</th>
+                </tr>
+                <tr><td style="padding:5px 10px;color:#94A3B8">0</td><td><span class="cp gray">UNSPECIFIED</span></td><td style="padding:5px 10px;color:#94A3B8">미지정</td></tr>
+                <tr style="background:#fff"><td style="padding:5px 10px;font-weight:700">1</td><td><span class="cp yellow">ADMIN</span></td><td style="padding:5px 10px;color:#374151">메인 관리자 — 계정 편집·결제 보기·DRT 전체 권한</td></tr>
+                <tr><td style="padding:5px 10px;font-weight:700">2</td><td><span class="cp yellow">MEMBER</span></td><td style="padding:5px 10px;color:#374151">일반 관리자 — 계정 보기·결제 보기·DRT 보기/편집</td></tr>
+              </table>
+            </td>
+          </tr>
         </tbody>
       </table>
 
