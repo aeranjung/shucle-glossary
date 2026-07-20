@@ -919,16 +919,29 @@
             <td class="c-desc">승하차 지점. 맵툴에서 관리. ADR-009로 다중 zone 관계 테이블로 분리됨</td>
           </tr>
           <tr>
-            <td class="c-term">대기장소</td>
-            <td class="c-en">Waiting Point</td>
-            <td class="c-code"><span class="cp">waiting_stop_point_id</span></td>
-            <td class="c-desc">배차 대기 중 차량 대기 지점. 드라이버앱에서 변경 가능. 변경 시 운영툴 알림(3-C) 발생</td>
+            <td class="c-term">대기장소 <span class="cp blue" style="font-size:11px">wp</span><small>Waiting Point</small></td>
+            <td class="c-en">wp · Waiting Point</td>
+            <td class="c-code"><span class="cp blue">wp</span><br><span class="cp">wpId</span><br><span class="cp gray">waiting_stop_point_id</span></td>
+            <td class="c-desc">
+              처리해야 할 승하차 정류장(P/D) 업무가 끝나 공차가 됐을 때, 차량이 방황하며 공차 운행 비용을 낭비하지 않도록 자동으로 안내되는 <strong>사전 지정 대기 정류장</strong>.
+              드라이버앱은 공차 시 자동으로 <code style="font-family:monospace;font-size:12px">wpId</code>로 경로 안내를 시작함.
+              <br>드라이버앱에서 수동 변경 가능. 변경 시 운영툴 알림(3-C) 발생.
+              <br><strong>wp OFF 정책</strong>: 농어촌 등 넓은 지역에서 지정 wp까지 무리하게 복귀하는 것이 오히려 공차 운행을 유발하는 경우, 스케줄 타입에서 wp를 OFF 처리해 마지막 하차 정류장 또는 현재 위치에서 바로 실시간 호출을 대기하는 예외 정책 지원.
+              <br><span class="tag gray">서비스정책서/DRT/운행스케줄.md</span> <span class="tag gray">Driver App/03.운행중:운행스케줄.md</span> <span class="tag gray">optool-doc #2473</span> <span class="tag gray">product #6400</span> <span class="tag gray">DriverVehicle #692</span>
+            </td>
           </tr>
           <tr>
-            <td class="c-term">휴차지 / 차고지</td>
-            <td class="c-en">Off Point / Depot</td>
-            <td class="c-code"><span class="cp">off_point_id</span><br><span class="cp gray">MATCH_NO_OFFPOINT_FOUND=314</span></td>
-            <td class="c-desc">운행 세션 종료 후 차량 복귀 지점. 도착 처리로 세션 종료. 1km 이상 이격 시 알림(3-D)</td>
+            <td class="c-term">휴차지 <span class="cp yellow" style="font-size:11px">rp</span><small>Resting Point</small></td>
+            <td class="c-en">rp · Resting Point</td>
+            <td class="c-code"><span class="cp yellow">rp</span><br><span class="cp">rpId</span><br><span class="cp gray">off_point_id</span><br><span class="cp gray">MATCH_NO_OFFPOINT_FOUND=314</span></td>
+            <td class="c-desc">
+              기사님의 교대·식사·휴식(휴식 세션)을 보장하기 위해 차량을 안전하게 정차할 수 있는 <strong>지정 휴차지 정류장</strong>.
+              운영 스케줄 상 '휴식 세션'이 활성화되면, 드라이버앱은 차량을 일반 호출에서 제외하고 <code style="font-family:monospace;font-size:12px">rpId</code>로 길 안내를 시작.
+              rp 도착 시점부터 보장 휴식 카운트(예: 20분) 시작.
+              <br><strong>어뷰징 방지</strong>: 기사님의 늦장 휴식을 방지하기 위한 '휴식 시간 강제 진입' 등 방어 정책 적용 대상.
+              <br>운행 세션 종료 후 복귀 지점으로도 사용됨(=차고지). 1km 이상 이격 시 운영툴 알림(3-D) 발생.
+              <br><span class="tag gray">서비스정책서/DRT/운행스케줄.md</span> <span class="tag gray">Driver App/05.운행중:승하차체크.md</span> <span class="tag gray">optool-doc #2473</span> <span class="tag gray">DriverVehicle #349</span> <span class="tag gray">DriverVehicle #791</span>
+            </td>
           </tr>
           <tr>
             <td class="c-term">일시정차</td>
@@ -1573,6 +1586,16 @@
       <table>
         <thead><tr><th style="width:110px">약어·줄임말</th><th style="width:200px">원래 표현</th><th>사용 맥락 및 설명</th></tr></thead>
         <tbody>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">rp<br><small style="font-size:11px;color:#94A3B8">알피</small></td>
+            <td class="c-en">Resting Point (휴차지)</td>
+            <td class="c-desc">기사님의 교대·식사·휴식을 위한 <strong>지정 휴차지 정류장</strong>. 휴식 세션 시작 시 드라이버앱이 <code style="font-family:monospace;font-size:12px">rpId</code>로 자동 안내. rp 도착 시점부터 보장 휴식 카운트 시작. 어뷰징 방지 정책 적용 대상. <em>"rp 어디예요?", "rpId 설정해주세요"</em> <span class="tag gray">서비스정책서/DRT/운행스케줄.md</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">wp<br><small style="font-size:11px;color:#94A3B8">더블유피</small></td>
+            <td class="c-en">Waiting Point (대기장소)</td>
+            <td class="c-desc">공차 시 차량이 자동으로 안내되는 <strong>사전 지정 대기 정류장</strong>. 공차 운행 낭비 방지 목적. <code style="font-family:monospace;font-size:12px">wpId</code>로 경로 안내. 넓은 지역에서는 wp OFF 정책으로 현재 위치 대기 허용. <em>"wp 어디로 설정돼 있어요?", "wp 끄고 테스트해봐요"</em> <span class="tag gray">서비스정책서/DRT/운행스케줄.md</span> <span class="tag gray">product #6400</span></td>
+          </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">운스케</td>
             <td class="c-en">운행 스케줄 (Day Schedule)</td>
