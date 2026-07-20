@@ -356,6 +356,9 @@
     <div class="nav-tab active" data-section="s0">
       <span class="emoji">🏠</span><span class="label">홈</span>
     </div>
+    <div class="nav-tab" data-section="s9">
+      <span class="emoji">📌</span><span class="label">약어 모음</span>
+    </div>
     <div class="nav-tab" data-section="all">
       <span class="emoji">☰</span><span class="label">전체 보기</span>
     </div>
@@ -407,13 +410,6 @@
     </div>
     <div class="nav-tab" data-section="s12">
       <span class="emoji">📊</span><span class="label">인사이트툴</span>
-    </div>
-
-    <div class="nav-divider"></div>
-    <div class="nav-group-label">참고</div>
-
-    <div class="nav-tab" data-section="s9">
-      <span class="emoji">📌</span><span class="label">약어 모음</span>
     </div>
   </div>
 </nav>
@@ -1586,6 +1582,43 @@
       <table>
         <thead><tr><th style="width:110px">약어·줄임말</th><th style="width:200px">원래 표현</th><th>사용 맥락 및 설명</th></tr></thead>
         <tbody>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">ms<br><small style="font-size:11px;color:#94A3B8">엠에스</small></td>
+            <td class="c-en">MobilityService (모빌리티서비스)</td>
+            <td class="c-desc">승객이 실제로 배차받는 서비스 단위인 <strong>MobilityService</strong>의 줄임말. <code style="font-family:monospace;font-size:12px">mobility_service_id</code>의 구어체. <em>"ms 아이디 뭐예요?"</em>, <em>"ms 필터 추가해줘요"</em> 처럼 사용. 맵툴 권한 기준 단위이기도 함. <span class="tag gray">mobility_service_id</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">ot / optype<br><small style="font-size:11px;color:#94A3B8">오티·옵타입</small></td>
+            <td class="c-en">OperationType (운행유형타입)</td>
+            <td class="c-desc"><strong>OperationType</strong>의 줄임말. <code style="font-family:monospace;font-size:12px">operation_type_id</code>의 구어체. <em>"ot가 뭐예요?"</em>, <em>"optype 설정해줘요"</em>, <em>"이 optype id 확인해줘"</em> 처럼 사용. 운행유형타입(운유타)와 같은 개념. <span class="tag gray">operation_type_id</span></td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">P/D<br><small style="font-size:11px;color:#94A3B8">피디</small></td>
+            <td class="c-en">Pickup / Dropoff (승차 / 하차)</td>
+            <td class="c-desc">승차(Pickup)와 하차(Dropoff)를 묶어 통칭하는 표현. 배차·운행 맥락에서 <em>"P/D 처리 완료됐어요"</em>, <em>"P/D 정류장 체크해주세요"</em> 처럼 사용. 드라이버앱 운행 중 화면에서도 이 표기 사용.</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">gw<br><small style="font-size:11px;color:#94A3B8">지더블유</small></td>
+            <td class="c-en">Gateway (게이트웨이)</td>
+            <td class="c-desc">API 게이트웨이(apigw·drivergw·kioskgw·avgw·taxidrivergw 등)를 통칭하는 약어. <em>"apigw에서 터졌어요"</em>, <em>"gw 배포했어요"</em> 처럼 서비스 이름 뒤에 붙어 사용.</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">mob<br><small style="font-size:11px;color:#94A3B8">몹</small></td>
+            <td class="c-en">shucle-mobility 서비스</td>
+            <td class="c-desc">수요 핵심 비즈니스 로직·노선 관리를 담당하는 <strong>shucle-mobility</strong> 서비스의 개발팀 내 줄임말. <em>"mob에서 보내줘요"</em>, <em>"mob RPC 확인해봐요"</em> 처럼 사용.</td>
+          </tr>
+          <tr>
+            <td class="c-term" style="color:#7C3AED">dev / stg / prd<br><small style="font-size:11px;color:#94A3B8">데브·스테이지·프로덕션</small></td>
+            <td class="c-en">개발 서버 환경 구분</td>
+            <td class="c-desc">
+              서버 배포 환경을 구분하는 약어. 운영툴 README 기준:
+              <br>· <code style="font-family:monospace;font-size:12px">dev</code> — 개발 서버 (dev.shucle.com). 기능 개발 중 테스트
+              <br>· <code style="font-family:monospace;font-size:12px">stg</code> / <code style="font-family:monospace;font-size:12px">stage</code> — 스테이징 서버 (stage.shucle.com). 운영 직전 최종 검증
+              <br>· <code style="font-family:monospace;font-size:12px">prd</code> / <code style="font-family:monospace;font-size:12px">real</code> — 운영(상용) 서버 (operation.shucle.com). 실제 유저 환경
+              <br>· <code style="font-family:monospace;font-size:12px">qa</code> — QA 서버 (qa.shucle.com). QA 테스트 전용
+              <br><em>"dev에서는 되는데 prd에서 안 돼요"</em>, <em>"stg에서 확인해봐요"</em>
+            </td>
+          </tr>
           <tr>
             <td class="c-term" style="color:#7C3AED">rp<br><small style="font-size:11px;color:#94A3B8">알피</small></td>
             <td class="c-en">Resting Point (휴차지)</td>
